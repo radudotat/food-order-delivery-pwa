@@ -12,6 +12,7 @@ Design and develop a Food Order & Delivery platform using Next.js, with the foll
 6. Logged in Employees can change order status.
 7. The web application can be installed for offline use or giving the feeling of native application.
 8. Stretch goal: Realtime Push notifications for order & delivery status updates.
+9. Stretch goal: Deployment as Docker containers.
 
 ## The application will be built using the following technologies:
 
