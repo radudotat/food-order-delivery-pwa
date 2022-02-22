@@ -15,6 +15,7 @@
 7. The web application can be installed for offline use or giving the feeling of native application.
 8. Stretch goal: Realtime Push notifications for order & delivery status updates.
 9. Stretch goal: Deployment as Docker containers.
+10. Stretch goal: Users can rate Restaurant & Courier
 
 ## The application will be built using the following technologies:
 
