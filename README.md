@@ -1,8 +1,10 @@
 # Food Order & Delivery with Realtime Status Updates
 
+**Tags:** node.js, graphql, design, typescript, pwa, offline-first, next.js, postgresql, push-notifications, background-sync, tailwindcss
+
 ## Description
 
-Design and develop a Food Order & Delivery platform using Next.js, with the following features:
+**Design and develop a Food Order & Delivery platform using Next.js, with the following features:**
 
 1. Users can register, add phone & address for delivery 
 2. Restaurants can register, add logo, cover photo, phone & address and can add/manage products for listing.
