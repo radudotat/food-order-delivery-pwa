@@ -1,10 +1,32 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+// import Image from 'next/image'
+import { useEffect } from 'react'
 import { Bag, Drone, MapPin, Menu } from '../components/icons'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  useEffect(() => {
+
+    if ("serviceWorker" in navigator) {
+      const sw = navigator.serviceWorker;
+      window.addEventListener('load', () => {
+        sw.register('/service-worker.js')
+          .then(() => sw.ready)
+          .then(() => {
+            sw.addEventListener('message', ({ data }) => {
+
+              // if (data?.state !== undefined) {
+              //   setCounter(data.state);
+              // }
+
+            })
+          })
+      })
+    }
+
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -33,7 +55,7 @@ const Home: NextPage = () => {
       </nav>
       <div className={styles.hero}>
         <Drone />
-        <h1>Easy food Order & Delivery near to you!</h1>
+        <h1>Easy food Order & Delivery near you!</h1>
         <button><MapPin />Use current location</button>
       </div>
       <main className={styles.main}>

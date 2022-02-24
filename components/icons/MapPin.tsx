@@ -4,7 +4,7 @@ const MapPin = ({ ...props }) => {
       viewBox="0 0 24 24"
       width="24"
       height="24"
-      stroke="#ffffff"
+      stroke="#1d1d1d"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
