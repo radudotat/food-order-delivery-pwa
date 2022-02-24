@@ -101,6 +101,8 @@
   min-height: 10vh;
   background-color: #1d1d1d;
   margin-top: -2px;
+  color: #fafafa;
+  text-shadow: 1px 1px 3px #919191;
 }
 
 .footer a {
@@ -110,8 +112,12 @@
   flex-grow: 1;
 }
 
+.title {
+  text-shadow: 1px 1px 2px #919191;
+}
+
 .title a {
-  color: #0070f3;
+  color: #2e7d32;
   text-decoration: none;
 }
 
@@ -170,8 +176,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: #2e7d32;
+  border-color: #2e7d32;
 }
 
 .card h2 {

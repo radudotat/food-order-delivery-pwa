@@ -58,17 +58,16 @@ const Home: NextPage = () => {
       </nav>
       <div className={styles.hero}>
         <Drone />
-        <h1>Easy Food order & delivery near to you</h1>
+        <h1>Easy food Order & Delivery near to you!</h1>
         <button><MapPin className="w-5 flex" />Use current location</button>
       </div>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Pick up your <a href="https://nextjs.org">Restaurant!</a>
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
+          Get started with our best recomandations
         </p>
 
         <div className={styles.grid}>
@@ -104,13 +103,14 @@ const Home: NextPage = () => {
 
       <footer className={styles.footer}>
         <a
+          href="https://radu.at"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <span className={styles.logo}>
+          Powered by{' '}radu.at
+          {/* <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+          </span> */}
         </a>
       </footer>
     </div>
