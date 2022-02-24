@@ -5,7 +5,7 @@ const Bag = ({ ...props }) => {
       height="22"
       viewBox="0 0 20 22"
       fill="none"
-      stroke="currentColor"
+      stroke="#ffffff"
       {...props}
     >
       <path

@@ -4,31 +4,6 @@ import Image from 'next/image'
 import { Bag, Drone, MapPin, Menu } from '../components/icons'
 import styles from '../styles/Home.module.css'
 
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-
-type currentColor = {
-  currentColor: string;
-};
-
-type Props = { currentColor: currentColor };
-
-const currentColor = "#ffffff";
-
-export async function getStaticProps({
-  locale,
-  locales,
-}: GetStaticPropsContext) {
-  const config = { locale, locales }
-
-
-  return {
-    props: {
-      currentColor,
-    },
-    revalidate: 60,
-  }
-}
-
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -50,7 +25,7 @@ const Home: NextPage = () => {
           <div className={styles.cartArea}>
             <ul>
               <li><Bag /></li>
-              <li><Menu /></li>
+              {/* <li><Menu /></li> */}
             </ul>
           </div>
         </div>
@@ -59,11 +34,11 @@ const Home: NextPage = () => {
       <div className={styles.hero}>
         <Drone />
         <h1>Easy food Order & Delivery near to you!</h1>
-        <button><MapPin className="w-5 flex" />Use current location</button>
+        <button><MapPin />Use current location</button>
       </div>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Pick up your <a href="https://nextjs.org">Restaurant!</a>
+          Pick up your <a href="/restaurants">Restaurant!</a>
         </h1>
 
         <p className={styles.description}>

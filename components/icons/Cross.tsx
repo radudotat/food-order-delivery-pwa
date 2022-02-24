@@ -4,7 +4,7 @@ const Cross = ({ ...props }) => {
       viewBox="0 0 24 24"
       width="24"
       height="24"
-      stroke="currentColor"
+      stroke="#ffffff"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
