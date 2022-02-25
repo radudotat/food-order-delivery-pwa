@@ -1,16 +1,16 @@
-import { config } from 'dotenv-safe';
-import * as Sentry from '@sentry/browser'
-import { RewriteFrames } from '@sentry/integrations'
-import { Integrations } from '@sentry/tracing'
-import { NextApiRequest, NextApiResponse } from 'next'
+import * as Sentry from '@sentry/browser';
 import { Exception } from '@sentry/browser';
+import { RewriteFrames } from '@sentry/integrations';
+import { Integrations } from '@sentry/tracing';
+import { config } from 'dotenv-safe';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 config();
 
 export const init = (): void => {
   if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
     // console.debug(process.env.NEXT_PUBLIC_APP_STAGE);
-    const integrations = []
+    const integrations = [];
     if (
       process.env.NEXT_IS_SERVER === 'true' &&
       process.env.NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR
@@ -22,22 +22,21 @@ export const init = (): void => {
         new RewriteFrames({
           iteratee: (frame) => {
             console.warn(
-              `ROOT :${process.env.NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR}`
-            )
-            console.warn(`FILENAME :${frame.filename}`)
-            // frame.filename = frame.filename.replace(
-            //   process.env.NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR,
-            //   'app:///'
-            // )
-            // eslint-disable-next-line no-param-reassign
-            // frame.filename = frame.filename.replace('.next', '_next')
-            console.warn(`FILENAME NEW :${frame.filename}`)
-            return frame
+              `ROOT :${process.env.NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR}`,
+            );
+            console.warn(`FILENAME :${frame.filename}`);
+            frame.filename = frame.filename.replace(
+              process.env.NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR,
+              'app:///',
+            );
+            frame.filename = frame.filename.replace('.next', '_next');
+            console.warn(`FILENAME NEW :${frame.filename}`);
+            return frame;
           },
-        })
-      )
+        }),
+      );
     }
-    integrations.push(new Integrations.BrowserTracing())
+    integrations.push(new Integrations.BrowserTracing());
     Sentry.init({
       enabled: process.env.NEXT_PUBLIC_APP_STAGE !== 'development',
       environment: process.env.NEXT_PUBLIC_APP_STAGE,
@@ -45,12 +44,12 @@ export const init = (): void => {
       dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
       release: `${process.env.NEXT_PUBLIC_COMMIT_SHA}`,
       tracesSampleRate: 1.0,
-    })
+    });
     Sentry.configureScope((scope) => {
-      scope.setTag('stage', process.env.NEXT_PUBLIC_APP_STAGE)
-    })
+      scope.setTag('stage', process.env.NEXT_PUBLIC_APP_STAGE);
+    });
   }
-}
+};
 /**
  * Configure the Sentry scope by extracting useful tags and context from the given request.
  *
@@ -64,31 +63,29 @@ export const configureReq = (_req: NextApiRequest): void => {
     // scope.setContext('query', get(req, 'query'));
     // scope.setContext('cookies', get(req, 'cookies'));
     // scope.setContext('headers', get(req, 'headers'));
-  })
-}
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const withSentry = (handler: (arg0: NextApiRequest, arg1: NextApiResponse<any>) => void) => async (
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<any> => {
-  try {
-    init()
-    handler(req, res)
-  } catch (e: any) {
-    console.warn('Configure sentry tag/context')
-    configureReq(req)
-    console.warn('Send data to sentry', e)
-    Sentry.captureException(e)
-    await Sentry.flush(2000)
-    res.json({
-      error: true,
-      environment: process.env.NODE_ENV,
-      stage: process.env.NEXT_PUBLIC_APP_STAGE,
-      message:
-        process.env.NEXT_PUBLIC_APP_STAGE !== 'production'
-          ? e.message
-          : undefined,
-    })
-  }
-}
-export default Sentry
+  });
+};
+export const withSentry =
+  (handler: (arg0: NextApiRequest, arg1: NextApiResponse<any>) => void) =>
+  async (req: NextApiRequest, res: NextApiResponse): Promise<any> => {
+    try {
+      init();
+      handler(req, res);
+    } catch (e: any) {
+      console.warn('Configure sentry tag/context');
+      configureReq(req);
+      console.warn('Send data to sentry', e);
+      Sentry.captureException(e);
+      await Sentry.flush(2000);
+      res.json({
+        error: true,
+        environment: process.env.NODE_ENV,
+        stage: process.env.NEXT_PUBLIC_APP_STAGE,
+        message:
+          process.env.NEXT_PUBLIC_APP_STAGE !== 'production'
+            ? e.message
+            : undefined,
+      });
+    }
+  };
+export default Sentry;

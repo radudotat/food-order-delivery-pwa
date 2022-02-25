@@ -1,11 +1,15 @@
-self.addEventListener("install", function (e) {
+self.addEventListener('install', function (e) {
   self.skipWaiting();
-  console.log("Hello world from the Service Worker 🤙");
-  e.waitUntil((async () => {
-    // const cache = await caches.open(cacheName);
-    console.log('[Service Worker install] Caching all: app shell and content');
-    // await cache.addAll(contentToCache);
-  })());
+  console.log('Hello world from the Service Worker 🤙');
+  e.waitUntil(
+    (async () => {
+      // const cache = await caches.open(cacheName);
+      console.log(
+        '[Service Worker install] Caching all: app shell and content',
+      );
+      // await cache.addAll(contentToCache);
+    })(),
+  );
 });
 
 self.addEventListener('fetch', (e) => {
