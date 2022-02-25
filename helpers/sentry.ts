@@ -25,11 +25,11 @@ export const init = (): void => {
               `ROOT :${process.env.NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR}`,
             );
             console.warn(`FILENAME :${frame.filename}`);
-            frame.filename = frame.filename.replace(
-              process.env.NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR,
-              'app:///',
-            );
-            frame.filename = frame.filename.replace('.next', '_next');
+            // frame.filename = frame.filename.replace(
+            //   process.env.NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR,
+            //   'app:///',
+            // );
+            // frame.filename = frame.filename.replace('.next', '_next');
             console.warn(`FILENAME NEW :${frame.filename}`);
             return frame;
           },
