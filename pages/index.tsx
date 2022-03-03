@@ -1,13 +1,19 @@
 // import type { NextPage } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 // import Image from 'next/image'
 import { useEffect } from 'react';
 import { Bag, Drone } from '../components/icons';
 import RequestPositionButton from '../components/RequestPositionButton';
+import { createCsrfToken } from '../helpers/auth';
 // import { watchGeolocation } from '../helpers/geolocation';
 import styles from '../styles/Home.module.css';
 
-export default function Home() {
+type Props = {
+  csrfToken: string;
+};
+
+export default function Home(props: Props) {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       const sw = navigator.serviceWorker;
@@ -30,12 +36,17 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
+        <link rel="manifest" href="/manifest.json" />
         <title>Food Ordering App</title>
         <meta
           name="description"
           content="Food Order & Delivery with Realtime Status Updates"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#2e7d32" />
+        <meta name="CSRF" content={props.csrfToken} />
+        <link rel="icon" href="/icons/maskable_icon_x48.png" />
+        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <nav className={styles.sticky}>
         <div className={styles.navLayout}>
@@ -112,4 +123,26 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // Redirect from HTTP to HTTPS on Heroku
+  if (
+    context.req.headers.host &&
+    context.req.headers['x-forwarded-proto'] &&
+    context.req.headers['x-forwarded-proto'] !== 'https'
+  ) {
+    return {
+      redirect: {
+        destination: `https://${context.req.headers.host}/`,
+        permanent: true,
+      },
+    };
+  }
+
+  return {
+    props: {
+      csrfToken: createCsrfToken(),
+    },
+  };
 }

@@ -19,6 +19,7 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "camelcase-keys": "^7.0.2",
+    "csrf": "^3.1.0",
     "dotenv-cli": "^5.0.0",
     "dotenv-safe": "^8.2.0",
     "js-cookie": "^3.0.1",

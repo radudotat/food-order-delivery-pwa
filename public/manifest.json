@@ -11,11 +11,18 @@
       "src": "/icon-512.png",
       "type": "image/png",
       "sizes": "512x512"
+    },
+    {
+      "src": "/icons/maskable_icon.png",
+      "sizes": "196x196",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "background_color": "#2e7d32",
   "description": "Easy food Order & Delivery near you!",
   "display": "fullscreen",
   "start_url": "/",
-  "theme_color": "#000"
+  "theme_color": "#000",
+  "prefer_related_applications": false
 }
