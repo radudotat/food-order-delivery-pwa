@@ -1,28 +1,28 @@
-import { css } from '@emotion/react';
+import {css} from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import { BiCart } from 'react-icons/bi';
+import {useState} from 'react';
+import {BiCart} from 'react-icons/bi';
 // import Layout from '../components/Layout';
 import PizzaIso from '../public/svg/pizza-iso.svg';
 import styles from '../styles/Home.module.css';
 import {
-  getParsedCookie,
-  ReservedRestaurants,
-  setParsedCookie,
+    getParsedCookie,
+    ReservedRestaurants,
+    setParsedCookie,
 } from './helpers/cookies';
 import {
-  getRestaurants,
-  Restaurant,
-  RestaurantsList,
+    getRestaurants,
+    Restaurant,
+    RestaurantsList,
 } from './helpers/database';
-import formatPrice from './helpers/helpers';
+import {formatPrice} from './helpers/helpers';
 
 type Props = {
-  // Restaurant: Restaurant;
-  Restaurants: RestaurantsList;
-  reservedRestaurants: ReservedRestaurants;
+    // Restaurant: Restaurant;
+    Restaurants: RestaurantsList;
+    reservedRestaurants: ReservedRestaurants;
 };
 
 // const RestaurantStyles = css`
@@ -60,84 +60,122 @@ const RestaurantLinkStyles = css`
   cursor: pointer;
 `;
 
-export default function Restaurants(props: Props) {
-  const [RestaurantsArray, setRestaurantsArray] = useState(
-    props.reservedRestaurants,
-  );
+const operation = `
+  query GetRestaurants {
+    total: restaurants_aggregate(where: {address: {_neq: ""}, _and: {_and: {id: {_gt: 10}}}}) {
+      aggregate {
+        totalCount: count
+      }
+    }
+    restaurants(limit: 9, where: {address: {_neq: ""}, _and: {_and: {id: {_gt: 10}}}}, order_by: {name: asc}) {
+      id
+      name
+      address
+      amenity
+    }
+  }
+`;
 
-  function addRestaurantToCart(id: number) {
-    console.log('addRestaurantToCart', id, RestaurantsArray);
-    // 1. get the value of the cookie
-    const cookieValue = getParsedCookie('reservedRestaurants') || [];
+async function fetchGetRestaurants(operation: string) {
+    return fetch('http://localhost:8084/v1/graphql', {
+        method: 'POST',
+        body: JSON.stringify({
+            query: operation,
+        }),
+    }).then(result => result.json());
+}
 
-    // 2. update the cooke
-    const existIdOnArray = cookieValue.some((cookieObject: { id: number }) => {
-      return cookieObject.id === id;
+
+fetchGetRestaurants(operation)
+    .then(({data, errors}) => {
+        if (errors) {
+            console.error(errors);
+        }
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error);
     });
 
-    let newCookie;
-    if (existIdOnArray) {
-      //  CASE = when the id is in the array => delete item
-      //  cookieValue  [{id:3},{id:5} ]
-      newCookie = cookieValue.filter((cookieObject: { id: number }) => {
-        return cookieObject.id === id;
-      });
 
-      console.log('existIdOnArray Cookie', id, newCookie);
-      newCookie[0].quantity += 1;
-      const newQuantity = newCookie[0].quantity;
+export default function Restaurants(props: Props) {
+    const [RestaurantsArray, setRestaurantsArray] = useState(
+        props.reservedRestaurants,
+    );
 
-      newCookie = [...cookieValue, { id: id, quantity: newQuantity }];
-    } else {
-      //  CASE = when the id is not in the array => add item
-      //  cookieValue  [{id:3, quantity: 5 },{id:5, quantity: 12 }]
-      newCookie = [...cookieValue, { id: id, quantity: 1 }];
+    function addRestaurantToCart(id: number) {
+        console.log('addRestaurantToCart', id, RestaurantsArray);
+        // 1. get the value of the cookie
+        const cookieValue = getParsedCookie('reservedRestaurants') || [];
+
+        // 2. update the cooke
+        const existIdOnArray = cookieValue.some((cookieObject: { id: number }) => {
+            return cookieObject.id === id;
+        });
+
+        let newCookie;
+        if (existIdOnArray) {
+            //  CASE = when the id is in the array => delete item
+            //  cookieValue  [{id:3},{id:5} ]
+            newCookie = cookieValue.filter((cookieObject: { id: number }) => {
+                return cookieObject.id === id;
+            });
+
+            console.log('existIdOnArray Cookie', id, newCookie);
+            newCookie[0].quantity += 1;
+            const newQuantity = newCookie[0].quantity;
+
+            newCookie = [...cookieValue, {id: id, quantity: newQuantity}];
+        } else {
+            //  CASE = when the id is not in the array => add item
+            //  cookieValue  [{id:3, quantity: 5 },{id:5, quantity: 12 }]
+            newCookie = [...cookieValue, {id: id, quantity: 1}];
+        }
+
+        // 3. set the new value of the cookie
+        setRestaurantsArray(newCookie);
+        setParsedCookie('reservedRestaurants', newCookie);
+        /* console.log('RestaurantsArray, RestaurantsArray'); */
     }
 
-    // 3. set the new value of the cookie
-    setRestaurantsArray(newCookie);
-    setParsedCookie('reservedRestaurants', newCookie);
-    /* console.log('RestaurantsArray, RestaurantsArray'); */
-  }
+    return (
+        <>
+            <Head>
+                <title>Restaurants</title>
+                <meta name="description" content="Our shop Restaurants"/>
+            </Head>
 
-  return (
-    <>
-      <Head>
-        <title>Restaurants</title>
-        <meta name="description" content="Our shop Restaurants" />
-      </Head>
-
-      <h1 className={styles.title}>Restaurants</h1>
-      <div css={RestaurantsStyles}>
-        {props.Restaurants.map((Restaurant: Restaurant) => {
-          return (
-            <div key={`Restaurant-${Restaurant.id}`} css={RestaurantStyles}>
-              <Link href={`/Restaurants/${Restaurant.id}`}>
-                <a css={RestaurantLinkStyles}>
-                  <div css={RestaurantNameStyles}>{Restaurant.name}</div>
-                  <Image src={PizzaIso} />
-                </a>
-              </Link>
-              <button onClick={() => addRestaurantToCart(Restaurant.id)}>
-                €{formatPrice(Restaurant.price)}
-                <BiCart height="40" />
-              </button>
+            <h1 className={styles.title}>Restaurants</h1>
+            <div css={RestaurantsStyles}>
+                {props.Restaurants.map((Restaurant: Restaurant) => {
+                    return (
+                        <div key={`Restaurant-${Restaurant.id}`} css={RestaurantStyles}>
+                            <Link href={`/Restaurants/${Restaurant.id}`}>
+                                <a css={RestaurantLinkStyles}>
+                                    <div css={RestaurantNameStyles}>{Restaurant.name}</div>
+                                    <Image src={PizzaIso}/>
+                                </a>
+                            </Link>
+                            <button onClick={() => addRestaurantToCart(Restaurant.id)}>
+                                €{formatPrice(Restaurant.price)}
+                                <BiCart height="40"/>
+                            </button>
+                        </div>
+                    );
+                })}
             </div>
-          );
-        })}
-      </div>
-    </>
-  );
+        </>
+    );
 }
 
 export async function getServerSideProps() {
-  const RestaurantsList = await getRestaurants();
+    const RestaurantsList = await getRestaurants();
 
-  return {
-    props: {
-      // In the props object, you can pass back
-      // whatever information you want
-      Restaurants: RestaurantsList,
-    },
-  };
+    return {
+        props: {
+            // In the props object, you can pass back
+            // whatever information you want
+            Restaurants: RestaurantsList,
+        },
+    };
 }

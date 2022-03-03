@@ -6,15 +6,17 @@ exports.up = async (sql) => {
   await sql`
     CREATE TABLE restaurants (
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-      name varchar(20) NOT NULL,
-      address varchar(120) NOT NULL,
+      name varchar(100) NOT NULL,
+      address varchar(120) NULL,
       logo varchar(120) NULL,
       cover varchar(120) NULL,
-      geog geography
+      amenity varchar(100) NULL,
+      cuisine varchar(100) NULL,
+      location GEOGRAPHY(Point) NULL
     );
   `;
 
-  await sql`CREATE INDEX ON restaurants USING gist(geog);`;
+  await sql`CREATE INDEX ON restaurants USING gist(location);`;
 };
 
 exports.down = async (sql) => {
