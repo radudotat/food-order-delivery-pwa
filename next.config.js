@@ -20,12 +20,9 @@ const nextConfig = {
         handler: 'NetworkFirst',
         options: {
           cacheName: 'offlineCache',
-          expiration: {
-            maxEntries: 200,
-          },
           networkTimeoutSeconds: 15,
           expiration: {
-            maxEntries: 150,
+            maxEntries: 250,
             maxAgeSeconds: 30 * 24 * 60 * 60, // 1 month
           },
           cacheableResponse: {

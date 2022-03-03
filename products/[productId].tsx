@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { getProductById, Product } from '../helpers/database';
 // import Image from 'next/image';
 // import Layout from '../../components/Layout';
-import formatPrice from '../helpers/helpers';
+import { formatPrice } from '../helpers/helpers';
 
 type Props = {
   product: Product;

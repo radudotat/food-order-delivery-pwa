@@ -1,7 +1,7 @@
 import camelcaseKeys from 'camelcase-keys';
 import { config } from 'dotenv-safe';
 import postgres from 'postgres';
-import setPostgresDefaultsOnHeroku from './heroku.defaults';
+import setPostgresDefaultsOnHeroku from './herokuDefaults';
 
 setPostgresDefaultsOnHeroku();
 // Read the environment variables from the .env

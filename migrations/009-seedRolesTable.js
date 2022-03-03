@@ -14,13 +14,13 @@ const roles = [
   {
     role: 'delivery',
   },
-]
+];
 
 exports.up = async (sql) => {
   await sql`
       INSERT INTO roles ${sql(roles, 'role')}
-  `
-}
+  `;
+};
 
 exports.down = async (sql) => {
   for (const role of roles) {
@@ -28,6 +28,6 @@ exports.down = async (sql) => {
         DELETE
         FROM roles
         WHERE role = ${role.role}
-    `
+    `;
   }
-}
+};

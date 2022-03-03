@@ -4,16 +4,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { BiCart } from 'react-icons/bi';
-// import Layout from '../components/Layout';
-import PizzaIso from '../public/svg/pizza-iso.svg';
-import styles from '../styles/Home.module.css';
 import {
   getParsedCookie,
   ReservedProducts,
   setParsedCookie,
 } from './helpers/cookies';
 import { getProducts, Product, ProductsList } from './helpers/database';
-import formatPrice from './helpers/helpers';
+import { formatPrice } from './helpers/helpers';
+// import Layout from '../components/Layout';
+import PizzaIso from './public/svg/pizza-iso.svg';
+import styles from './styles/Home.module.css';
 
 type Props = {
   // product: Product;
