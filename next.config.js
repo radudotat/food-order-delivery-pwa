@@ -5,6 +5,10 @@ require('dotenv-safe').config({
 });
 
 const nextConfig = {
+  i18n: {
+    locales: ['en'],
+    defaultLocale: 'en',
+  },
   reactStrictMode: true,
   target: 'serverless',
   transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache

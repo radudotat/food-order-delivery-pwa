@@ -43,7 +43,10 @@ export default function Home() {
 
           <div className={styles.searchArea}>
             <div className={styles.searchForm}>
-              <input name="q" />
+              <label>
+                Search
+                <input name="q" />
+              </label>
             </div>
           </div>
 
@@ -68,7 +71,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get started with our best recomandations
+          Get started with our best recommendations
         </p>
 
         <div className={styles.grid}>

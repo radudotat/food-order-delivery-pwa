@@ -7,11 +7,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background:
-    url(/svg/wave-top.svg) top/100% auto,
+  background: url(/svg/wave-top.svg) top/100% auto,
     url(/svg/wave-bottom.svg) bottom/100% auto,
-    linear-gradient(#f2ffdb,#f2ffdb) content-box;
-  background-repeat:no-repeat;
+    linear-gradient(#f2ffdb, #f2ffdb) content-box;
+  background-repeat: no-repeat;
 }
 
 .main .container {
@@ -30,7 +29,7 @@
   text-align: center;
 }
 
-.hero > svg{
+.hero > svg {
   margin-top: 4em;
 }
 
@@ -38,13 +37,10 @@
   font-size: 250%;
   padding: 4rem 0 1rem 0;
   font-weight: 800;
-  background: -webkit-linear-gradient(
-45deg
-, #ffffff, #00ff95 80%);
+  background: -webkit-linear-gradient(45deg, #ffffff, #00ff95 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: rgb(235, 235, 235) 0px 0px 60px;
-
 }
 
 .hero button {
@@ -85,9 +81,7 @@
 .logoArea {
   font-size: 150%;
   font-weight: 800;
-  background: -webkit-linear-gradient(
-45deg
-, #ffffff, #00ff95 80%);
+  background: -webkit-linear-gradient(45deg, #ffffff, #00ff95 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: rgb(235, 235, 235) 0px 0px 60px;
@@ -215,12 +209,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 1em;
-
 }
 
-.navLayout > div {
+/* .navLayout > div {
   flex: 1;
-}
+} */
 
 .searchForm {
   background-color: white;
@@ -234,11 +227,16 @@
 .searchForm input {
   border: 0;
   outline: none;
-  color: #1d1d1d !important;
+  color: #1d1d1d;
   font-weight: 700;
 }
 
-.cartArea{
+.searchForm label {
+  color: #2e7d32;
+  /* opacity: 0.2; */
+}
+
+.cartArea {
   text-align: end;
 }
 
@@ -250,7 +248,6 @@
   justify-content: flex-end;
   flex-wrap: nowrap;
   list-style-type: none;
-
 }
 
 .cartArea > ul > li {
