@@ -5,7 +5,7 @@
 
 const Header = () => {
   // const {user} = useUser();
-  return;
+  <header>&nbsp;</header>;
 };
 
 export default Header;
