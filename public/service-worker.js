@@ -10,8 +10,8 @@ const contentToCache = [
   '/icons/maskable_icon_x96.png',
 ];
 
-window.addEventListener('install', function (e) {
-  window.skipWaiting();
+self.addEventListener('install', function (e) {
+  self.skipWaiting();
   // console.log('Hello world from the Service Worker 🤙');
   e.waitUntil(
     (async () => {
@@ -24,18 +24,18 @@ window.addEventListener('install', function (e) {
   );
 });
 
-// window.addEventListener('fetch', (e) => {
+// self.addEventListener('fetch', (e) => {
 //   // console.log(`[Service Worker fetch] Fetched resource`, e);
 // });
 
-// window.addEventListener('push', (e) => {
+// self.addEventListener('push', (e) => {
 //   // console.log(`[Service Worker push] Fetched resource`, e);
 // });
 
-// window.addEventListener('sync', (e) => {
+// self.addEventListener('sync', (e) => {
 //   // console.log(`[Service Worker sync] Fetched resource`, e);
 // });
 
-// window.addEventListener('periodicsync', (e) => {
+// self.addEventListener('periodicsync', (e) => {
 //   // console.log(`[Service Worker periodicsync] Fetched resource`, e);
 // });

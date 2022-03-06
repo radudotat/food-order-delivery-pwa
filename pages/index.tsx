@@ -64,7 +64,7 @@ export default function Home(props: any) {
           .catch(console.error);
       });
     }
-  });
+  }, []);
 
   return (
     <div className={styles.container}>
