@@ -8,12 +8,12 @@ import {
   getParsedCookie,
   ReservedProducts,
   setParsedCookie,
-} from './helpers/cookies';
-import { getProducts, Product, ProductsList } from './helpers/database';
-import { formatPrice } from './helpers/helpers';
+} from '../lib/cookies';
+import { getProducts, Product, ProductsList } from '../lib/database';
+import { formatPrice } from '../lib/helpers';
 // import Layout from '../components/Layout';
-import PizzaIso from './public/svg/pizza-iso.svg';
-import styles from './styles/Home.module.css';
+import PizzaIso from '../public/svg/pizza-iso.svg';
+import styles from '../styles/Home.module.css';
 
 type Props = {
   // product: Product;

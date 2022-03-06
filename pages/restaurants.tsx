@@ -8,16 +8,16 @@ import {
   getParsedCookie,
   ReservedRestaurants,
   setParsedCookie,
-} from './helpers/cookies';
+} from '../lib/cookies';
 import {
   getRestaurants,
   Restaurant,
   RestaurantsList,
-} from './helpers/database';
-import { formatPrice } from './helpers/helpers';
+} from '../lib/database';
+import { formatPrice } from '../lib/helpers';
 // import Layout from '../components/Layout';
-import PizzaIso from './public/svg/pizza-iso.svg';
-import styles from './styles/Home.module.css';
+import PizzaIso from '../public/svg/pizza-iso.svg';
+import styles from '../styles/Home.module.css';
 
 type Props = {
   // Restaurant: Restaurant;
@@ -172,6 +172,7 @@ export default function Restaurants(props: Props) {
 
 export async function getServerSideProps() {
   const RestaurantsList = await getRestaurants();
+  console.log('-----------RestaurantsList', RestaurantsList);
 
   return {
     props: {

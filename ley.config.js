@@ -1,4 +1,4 @@
-const setPostgresDefaultsOnHeroku = require('./helpers/herokuDefaults');
+const setPostgresDefaultsOnHeroku = require('./lib/herokuDefaults');
 
 setPostgresDefaultsOnHeroku();
 

@@ -9,6 +9,9 @@ const nextConfig = {
     locales: ['en'],
     defaultLocale: 'en',
   },
+  env: {
+    GRAPHQL_ENDPOINT: process.env.GRAPHQL_ENDPOINT
+  },
   reactStrictMode: true,
   target: 'serverless',
   transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache

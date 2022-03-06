@@ -13,17 +13,17 @@ self.addEventListener('install', function (e) {
 });
 
 self.addEventListener('fetch', (e) => {
-  console.log(`[Service Worker fetch] Fetched resource`, e);
+  // console.log(`[Service Worker fetch] Fetched resource`, e);
 });
 
 self.addEventListener('push', (e) => {
-  console.log(`[Service Worker push] Fetched resource`, e);
+  // console.log(`[Service Worker push] Fetched resource`, e);
 });
 
 self.addEventListener('sync', (e) => {
-  console.log(`[Service Worker sync] Fetched resource`, e);
+  // console.log(`[Service Worker sync] Fetched resource`, e);
 });
 
 self.addEventListener('periodicsync', (e) => {
-  console.log(`[Service Worker periodicsync] Fetched resource`, e);
+  // console.log(`[Service Worker periodicsync] Fetched resource`, e);
 });

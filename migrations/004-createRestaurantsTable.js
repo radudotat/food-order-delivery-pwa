@@ -12,7 +12,8 @@ exports.up = async (sql) => {
       cover varchar(120) NULL,
       amenity varchar(100) NULL,
       cuisine varchar(100) NULL,
-      location GEOGRAPHY(Point) NULL
+      location GEOGRAPHY(Point) NULL,
+      distance float NULL 
     );
   `;
 
