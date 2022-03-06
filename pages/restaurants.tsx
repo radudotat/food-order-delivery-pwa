@@ -9,11 +9,7 @@ import {
   ReservedRestaurants,
   setParsedCookie,
 } from '../lib/cookies';
-import {
-  getRestaurants,
-  Restaurant,
-  RestaurantsList,
-} from '../lib/database';
+import { getRestaurants, Restaurant, RestaurantsList } from '../lib/database';
 import { formatPrice } from '../lib/helpers';
 // import Layout from '../components/Layout';
 import PizzaIso from '../public/svg/pizza-iso.svg';
@@ -21,7 +17,7 @@ import styles from '../styles/Home.module.css';
 
 type Props = {
   // Restaurant: Restaurant;
-  Restaurants: RestaurantsList;
+  restaurants: RestaurantsList;
   reservedRestaurants: ReservedRestaurants;
 };
 
@@ -77,7 +73,7 @@ const operation = `
 `;
 
 async function fetchGetRestaurants(op: string) {
-  return await fetch('http://localhost:8084/v1/graphql', {
+  return await fetch(`process.env.GRAPHQL_ENDPOINT`, {
     method: 'POST',
     body: JSON.stringify({
       query: op,
@@ -149,17 +145,17 @@ export default function Restaurants(props: Props) {
 
       <h1 className={styles.title}>Restaurants</h1>
       <div css={restaurantsStyles}>
-        {props.Restaurants.map((Restaurant: Restaurant) => {
+        {props.restaurants.map((restaurant: Restaurant) => {
           return (
-            <div key={`Restaurant-${Restaurant.id}`} css={restaurantStyles}>
-              <Link href={`/Restaurants/${Restaurant.id}`}>
+            <div key={`Restaurant-${restaurant.id}`} css={restaurantStyles}>
+              <Link href={`/restaurants/${restaurant.id}`}>
                 <a css={restaurantLinkStyles}>
-                  <div css={restaurantNameStyles}>{Restaurant.name}</div>
+                  <div css={restaurantNameStyles}>{restaurant.name}</div>
                   <Image src={PizzaIso} />
                 </a>
               </Link>
-              <button onClick={() => addRestaurantToCart(Restaurant.id)}>
-                €{formatPrice(Restaurant.price)}
+              <button onClick={() => addRestaurantToCart(restaurant.id)}>
+                €{formatPrice(restaurant.price)}
                 <BiCart height="40" />
               </button>
             </div>
@@ -171,14 +167,14 @@ export default function Restaurants(props: Props) {
 }
 
 export async function getServerSideProps() {
-  const RestaurantsList = await getRestaurants();
-  console.log('-----------RestaurantsList', RestaurantsList);
+  const responseRestaurantsList = await getRestaurants();
+  console.log('-----------RestaurantsList', responseRestaurantsList);
 
   return {
     props: {
       // In the props object, you can pass back
       // whatever information you want
-      Restaurants: RestaurantsList,
+      Restaurants: responseRestaurantsList,
     },
   };
 }

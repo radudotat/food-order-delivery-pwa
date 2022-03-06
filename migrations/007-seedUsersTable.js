@@ -2,7 +2,7 @@ const users = [
   {
     username: 'user',
     password_hash:
-      '$2a$12$FB89WhHxgl/q.bkS9N7jaO/KOZTDLKlb/AcS/saMw/.kaY1zEfTSC', //password
+      '$2a$12$FB89WhHxgl/q.bkS9N7jaO/KOZTDLKlb/AcS/saMw/.kaY1zEfTSC', // password
   },
   {
     username: 'admin',
