@@ -1,5 +1,14 @@
-const cacheName = 'offline-cache';
-const contentToCache = [];
+const cacheName = 'offline-cache-v1';
+const contentToCache = [
+  '/icon-512.png',
+  '/icon-192.png',
+  '/favicon.ico',
+  '/icons/maskable_icon.png',
+  '/icons/maskable_icon_x128.png',
+  '/icons/maskable_icon_x48.png',
+  '/icons/maskable_icon_x72.png',
+  '/icons/maskable_icon_x96.png',
+];
 
 window.addEventListener('install', function (e) {
   window.skipWaiting();
