@@ -1,9 +1,10 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
-import { getRestaurantById, Restaurant } from '../../lib/database';
+import { getRestaurantById } from '../../lib/database';
 // import Image from 'next/image';
 // import Layout from '../../components/Layout';
 import { formatPrice } from '../../lib/helpers';
+import { Restaurant } from '../../lib/types/restaurants';
 
 type Props = {
   restaurant: Restaurant;
@@ -15,17 +16,17 @@ export default function SingleRestaurant(props: Props) {
     <>
       <Head>
         <title>
-          {props.restaurant.name} ({props.restaurant.price})
+          {props.restaurant.name} ({props.restaurant.distance})
         </title>
         <meta
           name="description"
           content={`${props.restaurant.name} is a €${formatPrice(
-            props.restaurant.price,
+            props.restaurant.distance,
           )}`}
         />
       </Head>
       <h1>
-        {props.restaurant.name} (€{formatPrice(props.restaurant.price)})
+        {props.restaurant.name} (€{formatPrice(props.restaurant.distance)})
       </h1>
       <p>{JSON.stringify(props)}</p>
       {/* <Image
@@ -35,7 +36,7 @@ export default function SingleRestaurant(props: Props) {
       /> */}
       <div>id: {props.restaurant.id}</div>
       <div>Name: {props.restaurant.name}</div>
-      <div>Price: €{formatPrice(props.restaurant.price)}</div>
+      <div>Price: €{formatPrice(props.restaurant.distance)}</div>
     </>
   );
 }
