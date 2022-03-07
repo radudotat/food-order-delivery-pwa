@@ -2,6 +2,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { config } from 'dotenv-safe';
 import postgres from 'postgres';
 import setPostgresDefaultsOnHeroku from './herokuDefaults';
+import {Restaurant} from "./types/restaurants";
 
 setPostgresDefaultsOnHeroku();
 // Read the environment variables from the .env
@@ -26,15 +27,7 @@ export type Product = {
 
 export type ProductsList = [];
 
-export type Restaurant = {
-  id: number;
-  menuId: number;
-  categoryId: number;
-  name: string;
-  price: number;
-};
 
-export type RestaurantsList = [];
 
 // Connect only once to the database
 // https://github.com/vercel/next.js/issues/7811#issuecomment-715259370

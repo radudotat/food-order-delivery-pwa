@@ -14,6 +14,7 @@ import { formatPrice } from '../lib/helpers';
 // import Layout from '../components/Layout';
 import PizzaIso from '../public/svg/pizza-iso.svg';
 import styles from '../styles/Home.module.css';
+import {operation} from "../lib/apollo";
 
 type Props = {
   // Restaurant: Restaurant;
@@ -54,22 +55,6 @@ const restaurantNameStyles = css`
 const restaurantLinkStyles = css`
   text-align: center;
   cursor: pointer;
-`;
-
-const operation = `
-  query GetRestaurants {
-    total: restaurants_aggregate(where: {address: {_neq: ""}, _and: {_and: {id: {_gt: 10}}}}) {
-      aggregate {
-        totalCount: count
-      }
-    }
-    restaurants(limit: 9, where: {address: {_neq: ""}, _and: {_and: {id: {_gt: 10}}}}, order_by: {name: asc}) {
-      id
-      name
-      address
-      amenity
-    }
-  }
 `;
 
 async function fetchGetRestaurants(op: string) {

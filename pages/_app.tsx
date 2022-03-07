@@ -1,9 +1,10 @@
 import '../styles/globals.css'
 import type {AppProps} from 'next/app'
 import {ApolloProvider} from '@apollo/client'
-import apolloClient, {Restaurant} from '../lib/apollo'
+import apolloClient from '../lib/apollo'
 import Layout from '../components/Layout'
 import {useState} from "react";
+import {Restaurant} from "../lib/types/restaurants";
 
 function MyApp({Component, pageProps}: AppProps) {
     // console.log(apolloClient)

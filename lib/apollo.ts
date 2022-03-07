@@ -9,13 +9,6 @@ const apolloClient = new ApolloClient({
 
 export default apolloClient;
 
-export type Restaurant = {
-  id: number;
-  name: string;
-  address: string;
-  distance: number;
-};
-
 export async function fetchGetRestaurants(operation: string) {
   const apiUrl: string | undefined = process.env.GRAPHQL_ENDPOINT;
 
@@ -28,3 +21,50 @@ export async function fetchGetRestaurants(operation: string) {
     }),
   }).then((result) => result.json());
 }
+
+export const getRestaurantsQuery = `
+  query GetRestaurants {
+        restaurants(
+            limit: 9,
+            where: {address: {_neq: ""}},
+            order_by: {name: asc}
+        ){
+            id
+            name
+            address
+            amenity
+        }
+  }
+`;
+
+// const getRestaurantsByLocationQuery = `
+//               query GetNearbyRestaurants {
+//                 nearby_restaurants(args: {
+//                 lat: "${location.coords.latitude}",
+//                 lon: "${location.coords.longitude}",
+//                 bound: 1000
+//                 }, order_by: {
+//                 distance: asc
+//                 }, limit: 9, offset: 0) {
+//                   id
+//                   name
+//                   address
+//                   distance
+//                 }
+//               }
+// `;
+export const operation = `
+  query GetRestaurants {
+    total: restaurants_aggregate(where: {address: {_neq: ""}, _and: {_and: {id: {_gt: 10}}}}) {
+      aggregate {
+        totalCount: count
+      }
+    }
+    restaurants(limit: 9, where: {address: {_neq: ""}, _and: {_and: {id: {_gt: 10}}}}, order_by: {name: asc}) {
+      id
+      name
+      address
+      amenity
+    }
+  }
+`;
