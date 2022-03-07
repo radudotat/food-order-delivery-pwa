@@ -1,21 +1,25 @@
-import '../styles/globals.css'
-import type {AppProps} from 'next/app'
-import {ApolloProvider} from '@apollo/client'
-import apolloClient from '../lib/apollo'
-import Layout from '../components/Layout'
-import {useState} from "react";
-import {Restaurant} from "../lib/types/restaurants";
+import '../styles/globals.css';
+import { ApolloProvider } from '@apollo/client';
+import type { AppProps } from 'next/app';
+import { useState } from 'react';
+import Layout from '../components/Layout';
+import apolloClient from '../lib/apollo';
+import { Restaurant } from '../lib/types/restaurants';
 
-function MyApp({Component, pageProps}: AppProps) {
-    // console.log(apolloClient)
-    const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-    return (
-        <ApolloProvider client={apolloClient}>
-            <Layout>
-                <Component {...pageProps} restaurants={restaurants} setRestaurants={setRestaurants}/>
-            </Layout>
-        </ApolloProvider>
-    )
+function MyApp({ Component, pageProps }: AppProps) {
+  // console.log(apolloClient)
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  return (
+    <ApolloProvider client={apolloClient}>
+      <Layout>
+        <Component
+          {...pageProps}
+          restaurants={restaurants}
+          setRestaurants={setRestaurants}
+        />
+      </Layout>
+    </ApolloProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

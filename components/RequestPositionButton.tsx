@@ -1,9 +1,16 @@
+import { scroller } from 'react-scroll';
 import { fetchGetRestaurants } from '../lib/apollo';
 import { setCookieLocation } from '../lib/cookies';
 // import { watchGeolocation } from '../helpers/geolocation';
 import { MapPin } from './icons';
 
 const requestGeolocation = (props: any) => {
+  scroller.scrollTo('restaurants', {
+    duration: 1200,
+    delay: 0,
+    smooth: 'easeInOutQuart',
+    // offset: offset,
+  });
   const geolocation = navigator.geolocation.getCurrentPosition(
     (location) => {
       console.log(location.coords.latitude, location.coords.longitude);
