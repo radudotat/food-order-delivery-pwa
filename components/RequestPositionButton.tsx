@@ -1,6 +1,6 @@
 import { scroller } from 'react-scroll';
 // import { fetchGetRestaurants } from '../lib/apollo';
-// import { setCookieLocation } from '../lib/cookies';
+import { setCookieLocation } from '../lib/cookies';
 // import { watchGeolocation } from '../helpers/geolocation';
 import { MapPin } from './icons';
 
@@ -8,9 +8,10 @@ type Props = {
   refreshRestaurants: (param: string) => void;
 };
 
-const requestGeolocation = (props: Props) => {
-  // console.log('requestGeolocation props', props)
-
+const requestGeolocation = (callRefreshRestaurants: {
+  (param: string): void;
+  (arg0: string): void;
+}) => {
   scroller.scrollTo('restaurants', {
     duration: 1200,
     delay: 0,
@@ -21,6 +22,9 @@ const requestGeolocation = (props: Props) => {
   const geolocation = navigator.geolocation.getCurrentPosition(
     (location) => {
       // console.log('requestGeolocation', location.coords.latitude, location.coords.longitude);
+      setCookieLocation(location);
+      callRefreshRestaurants('byLocation');
+
       return location;
     },
     (error) => {
@@ -34,8 +38,6 @@ const requestGeolocation = (props: Props) => {
   );
   // const locationState = watchGeolocation();
 
-  props.refreshRestaurants('byLocation');
-
   return geolocation;
 };
 
@@ -43,7 +45,7 @@ const RequestPositionButton = (props: Props) => {
   return (
     <button
       onClick={() => {
-        requestGeolocation(props);
+        requestGeolocation(props.refreshRestaurants);
       }}
     >
       <MapPin />
