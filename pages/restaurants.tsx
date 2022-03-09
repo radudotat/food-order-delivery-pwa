@@ -15,11 +15,11 @@ import {formatPrice} from '../lib/helpers';
 // import Layout from '../components/Layout';
 import PizzaIso from '../public/svg/pizza-iso.svg';
 import styles from '../styles/Home.module.css';
-import {operation} from "../lib/apollo";
+import {fetchGetRestaurants, operation} from "../lib/apollo";
 import {MapPin} from "../components/icons";
 
 type Props = {
-    // Restaurant: Restaurant;
+    setRestaurants: () => void;
     restaurants: RestaurantsList;
     reservedRestaurants: ReservedRestaurants;
 };
@@ -58,17 +58,6 @@ const restaurantLinkStyles = css`
   text-align: center;
   cursor: pointer;
 `;
-
-async function fetchGetRestaurants(op: string) {
-    return await fetch(`process.env.GRAPHQL_ENDPOINT`, {
-        method: 'POST',
-        body: JSON.stringify({
-            query: op,
-        }),
-    })
-        .then((result) => result.json())
-        .catch(console.error);
-}
 
 const restaurants = async () => {
     await fetchGetRestaurants(operation)

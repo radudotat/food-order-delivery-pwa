@@ -1,25 +1,25 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import {ApolloClient, InMemoryCache} from '@apollo/client';
 
 // import { string } from 'prop-types';
 
 const apolloClient = new ApolloClient({
-  uri: process.env.GRAPHQL_ENDPOINT,
-  cache: new InMemoryCache(),
+    uri: process.env.GRAPHQL_ENDPOINT,
+    cache: new InMemoryCache(),
 });
 
 export default apolloClient;
 
 export async function fetchGetRestaurants(operation: string) {
-  const apiUrl: string | undefined = process.env.GRAPHQL_ENDPOINT;
+    const apiUrl: string | undefined = process.env.GRAPHQL_ENDPOINT;
 
-  if (!apiUrl) throw new Error('API address not defined');
+    if (!apiUrl) throw new Error('API address not defined');
 
-  return await fetch(apiUrl, {
-    method: 'POST',
-    body: JSON.stringify({
-      query: operation,
-    }),
-  }).then((result) => result.json());
+    return await fetch(apiUrl, {
+        method: 'POST',
+        body: JSON.stringify({
+            query: operation,
+        }),
+    }).then((result) => result.json());
 }
 
 export const getRestaurantsQuery = `
@@ -33,6 +33,7 @@ export const getRestaurantsQuery = `
             name
             address
             amenity
+            distance
         }
   }
 `;

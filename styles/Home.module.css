@@ -91,6 +91,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: rgb(235, 235, 235) 0px 0px 60px;
+  cursor: pointer;
 }
 
 .footer {
