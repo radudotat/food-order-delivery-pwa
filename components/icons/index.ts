@@ -21,3 +21,4 @@ export { default as ChevronDown } from './ChevronDown';
 export { default as ChevronRight } from './ChevronRight';
 export { default as DoubleChevron } from './DoubleChevron';
 export { default as Drone } from './Drone';
+export { default as User } from './User';

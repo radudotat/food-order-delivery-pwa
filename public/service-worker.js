@@ -1,4 +1,4 @@
-const cacheName = 'offline-cache-v1';
+const cacheName = 'offline-cache-v2';
 const contentToCache = [
   '/icon-512.png',
   '/icon-192.png',
@@ -8,6 +8,8 @@ const contentToCache = [
   '/icons/maskable_icon_x48.png',
   '/icons/maskable_icon_x72.png',
   '/icons/maskable_icon_x96.png',
+  '/offline.html',
+  '/',
 ];
 
 self.addEventListener('install', function (e) {
@@ -24,18 +26,18 @@ self.addEventListener('install', function (e) {
   );
 });
 
-// self.addEventListener('fetch', (e) => {
-//   // console.log(`[Service Worker fetch] Fetched resource`, e);
-// });
+self.addEventListener('fetch', (e) => {
+  // console.log(`[Service Worker fetch] Fetched resource`, e);
+});
 
-// self.addEventListener('push', (e) => {
-//   // console.log(`[Service Worker push] Fetched resource`, e);
-// });
+self.addEventListener('push', (e) => {
+  // console.log(`[Service Worker push] Fetched resource`, e);
+});
 
-// self.addEventListener('sync', (e) => {
-//   // console.log(`[Service Worker sync] Fetched resource`, e);
-// });
+self.addEventListener('sync', (e) => {
+  // console.log(`[Service Worker sync] Fetched resource`, e);
+});
 
-// self.addEventListener('periodicsync', (e) => {
-//   // console.log(`[Service Worker periodicsync] Fetched resource`, e);
-// });
+self.addEventListener('periodicsync', (e) => {
+  // console.log(`[Service Worker periodicsync] Fetched resource`, e);
+});

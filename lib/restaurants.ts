@@ -11,11 +11,10 @@ export async function fetchGetRestaurants(op: string) {
 }
 */
 
-import {fetchGetRestaurants} from "./apollo";
+import { fetchGetRestaurants } from './apollo';
 
 export async function getSortedRestaurantsData(q: string | string[]) {
-
-    const gql = `
+  const gql = `
       query SearchRestaurantsQuery {
         search_restaurants(
         limit: 9,
@@ -29,9 +28,9 @@ export async function getSortedRestaurantsData(q: string | string[]) {
       }
     `;
 
-    const response = await fetchGetRestaurants(gql)
+  const response = await fetchGetRestaurants(gql);
 
-    console.log(response)
+  console.log(response);
 
-    return {response};
+  return { response };
 }

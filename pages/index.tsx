@@ -1,134 +1,134 @@
 // import type { NextPage } from 'next';
-import {GetServerSidePropsContext} from 'next';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 // import Image from 'next/image'
-import {useEffect} from 'react';
-import {Bag, Drone} from '../components/icons';
+import { useEffect } from 'react';
+import { Bag, Drone } from '../components/icons';
+import Layout from '../components/Layout';
 import RequestPositionButton from '../components/RequestPositionButton';
 import Search from '../components/Search';
-import {fetchGetRestaurants, getRestaurantsQuery} from '../lib/apollo';
-import {createCsrfToken} from '../lib/auth';
-import {Restaurant} from '../lib/types/restaurants';
+// import { fetchGetRestaurants, getRestaurantsQuery } from '../lib/apollo';
+import { createCsrfToken } from '../lib/auth';
+import { Restaurant } from '../lib/types/restaurants';
 // import { watchGeolocation } from '../helpers/geolocation';
 import styles from '../styles/Home.module.css';
-import Layout from "../components/Layout";
 
 // import {DocumentNode, gql, useQuery} from '@apollo/client'
 // import {graphql} from 'graphql'
 
 type Props = {
-    refreshRestaurants: () => void;
-    csrfToken: string;
-    client: any;
-    restaurants: any;
+  refreshRestaurants: () => void;
+  csrfToken: string;
+  // client: any;
+  restaurants: any;
 };
 
 export default function Home(props: Props) {
-    useEffect(() => {
-        if ('serviceWorker' in navigator) {
-            const sw = navigator.serviceWorker;
-            window.addEventListener('load', () => {
-                sw.register('/service-worker.js')
-                    .then(() => sw.ready)
-                    .then(() => {
-                        sw.addEventListener('message', ({data}) => {
-                            if (data?.state !== undefined) {
-                                // setCounter(data.state);
-                                console.log(data);
-                            }
-                        });
-                    })
-                    .catch(console.error);
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      const sw = navigator.serviceWorker;
+      window.addEventListener('load', () => {
+        sw.register('/service-worker.js')
+          .then(() => sw.ready)
+          .then(() => {
+            sw.addEventListener('message', ({ data }) => {
+              if (data?.state !== undefined) {
+                // setCounter(data.state);
+                console.log(data);
+              }
             });
-        }
-    }, []);
+          })
+          .catch(console.error);
+      });
+    }
+  }, []);
 
-    return (
-        <Layout csrfToken={props.csrfToken}>
-            <div className={styles.container}>
-                <Head>
+  return (
+    <Layout csrfToken={props.csrfToken}>
+      <div className={styles.container}>
+        <Head children={null} />
+        <nav className={styles.sticky}>
+          <div className={styles.navLayout}>
+            <div className={styles.logoArea}>GeoFood</div>
 
-                </Head>
-                <nav className={styles.sticky}>
-                    <div className={styles.navLayout}>
-                        <div className={styles.logoArea}>GeoFood</div>
+            <div className={styles.searchArea}>
+              <Search />
+            </div>
 
-                        <div className={styles.searchArea}>
-                            <Search/>
-                        </div>
+            <div className={styles.cartArea}>
+              <ul>
+                <li>
+                  <Bag />
+                </li>
+                {/* <li><Menu /></li> */}
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div className={styles.hero}>
+          <Drone />
+          <h1>Easy food Order & Delivery near you!</h1>
+          <RequestPositionButton
+            refreshRestaurants={props.refreshRestaurants}
+          />
+          {/* {JSON.stringify(props)} */}
+        </div>
+        <main className={styles.main}>
+          <h1 className={styles.title}>
+            Pick up your{' '}
+            <Link href="/restaurants">
+              <a>Restaurant!</a>
+            </Link>
+          </h1>
 
-                        <div className={styles.cartArea}>
-                            <ul>
-                                <li>
-                                    <Bag/>
-                                </li>
-                                {/* <li><Menu /></li> */}
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                <div className={styles.hero}>
-                    <Drone/>
-                    <h1>Easy food Order & Delivery near you!</h1>
-                    <RequestPositionButton refreshRestaurants={props.refreshRestaurants}/>
-                    {/*{JSON.stringify(props)}*/}
-                </div>
-                <main className={styles.main}>
-                    <h1 className={styles.title}>
-                        Pick up your{' '}
-                        <Link href="/restaurants">
-                            <a>Restaurant!</a>
-                        </Link>
-                    </h1>
+          <p className={styles.description}>
+            Get started with our best recommendations
+          </p>
 
-                    <p className={styles.description}>
-                        Get started with our best recommendations
-                    </p>
+          <div id="restaurants" className={styles.grid}>
+            {props.restaurants.map((restaurant: Restaurant) => (
+              <Link key={restaurant.id} href={`/restaurants/${restaurant.id}`}>
+                <a className={styles.card}>
+                  <h2>{restaurant.name}</h2>
+                  <p>{restaurant.address}</p>
+                </a>
+              </Link>
+            ))}
+          </div>
+        </main>
 
-                    <div id="restaurants" className={styles.grid}>
-                        {props.restaurants.map((restaurant: Restaurant) => (
-                            <Link key={restaurant.id} href={`/restaurants/${restaurant.id}`}>
-                                <a className={styles.card}>
-                                    <h2>{restaurant.name}</h2>
-                                    <p>{restaurant.address}</p>
-                                </a>
-                            </Link>
-                        ))}
-                    </div>
-                </main>
-
-                <footer className={styles.footer}>
-                    <a href="https://radu.at" target="_blank" rel="noopener noreferrer">
-                        Powered by radu.at
-                        {/* <span className={styles.logo}>
+        <footer className={styles.footer}>
+          <a href="https://radu.at" target="_blank" rel="noopener noreferrer">
+            Powered by radu.at
+            {/* <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span> */}
-                    </a>
-                </footer>
-            </div>
-        </Layout>
-    );
+          </a>
+        </footer>
+      </div>
+    </Layout>
+  );
 }
 
 export function getServerSideProps(context: GetServerSidePropsContext) {
-    // Redirect from HTTP to HTTPS on Heroku
-    if (
-        context.req.headers.host &&
-        context.req.headers['x-forwarded-proto'] &&
-        context.req.headers['x-forwarded-proto'] !== 'https'
-    ) {
-        return {
-            redirect: {
-                destination: `https://${context.req.headers.host}/`,
-                permanent: true,
-            },
-        };
-    }
-
+  // Redirect from HTTP to HTTPS on Heroku
+  if (
+    context.req.headers.host &&
+    context.req.headers['x-forwarded-proto'] &&
+    context.req.headers['x-forwarded-proto'] !== 'https'
+  ) {
     return {
-        props: {
-            csrfToken: createCsrfToken(),
-        },
+      redirect: {
+        destination: `https://${context.req.headers.host}/`,
+        permanent: true,
+      },
     };
+  }
+
+  return {
+    props: {
+      csrfToken: createCsrfToken(),
+    },
+  };
 }

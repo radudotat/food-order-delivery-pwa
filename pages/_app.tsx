@@ -1,20 +1,26 @@
 import '../styles/globals.css';
-import {ApolloProvider} from '@apollo/client';
-import type {AppProps} from 'next/app';
-import {useCallback, useEffect, useState} from 'react';
-import apolloClient, {fetchGetRestaurants, getRestaurantsQuery} from '../lib/apollo';
-import {Restaurant} from '../lib/types/restaurants';
-import {getParsedCookie} from "../lib/cookies";
+import { ApolloProvider } from '@apollo/client';
+import type { AppProps } from 'next/app';
+import { useCallback, useEffect, useState } from 'react';
+import apolloClient, {
+  fetchGetRestaurants,
+  getRestaurantsQuery,
+} from '../lib/apollo';
+import { getParsedCookie } from '../lib/cookies';
+import { Restaurant } from '../lib/types/restaurants';
 
-function MyApp({Component, pageProps}: AppProps) {
-    // console.log(apolloClient)
-    const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-    const refreshRestaurants = useCallback(async (...args) => {
-        let gql = getRestaurantsQuery;
-        console.log('-------------------- refreshRestaurants -----------------', args)
-        if (args.length > 0 && args[0] === 'byLocation') {
-            let location = getParsedCookie('userLocation');
-            gql = `
+function MyApp({ Component, pageProps }: AppProps) {
+  // console.log(apolloClient)
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const refreshRestaurants = useCallback(async (...args) => {
+    let gql = getRestaurantsQuery;
+    // console.log(
+    //   '-------------------- refreshRestaurants -----------------',
+    //   args,
+    // );
+    if (args.length > 0 && args[0] === 'byLocation') {
+      const location = getParsedCookie('userLocation');
+      gql = `
               query GetNearbyRestaurants {
                 nearby_restaurants(args: {
                     lat: "${location.coords.latitude}",
@@ -22,9 +28,9 @@ function MyApp({Component, pageProps}: AppProps) {
                     bound: 10000
                 }, order_by: {
                     distance: asc
-                }, 
+                },
                 where: {address: {_neq: ""}},
-                limit: 9, 
+                limit: 9,
                 offset: 0) {
                   id
                   name
@@ -34,44 +40,45 @@ function MyApp({Component, pageProps}: AppProps) {
                 }
               }
 `;
+    }
+    // console.log('typeof location', location, gql);
+
+    const dataResponse = await fetchGetRestaurants(gql)
+      .then(({ data, errors }) => {
+        if (errors) {
+          console.error(errors);
         }
-        console.log('typeof location', location, gql)
+        return data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
-        const data = await fetchGetRestaurants(gql)
-            .then(({data, errors}) => {
-                if (errors) {
-                    console.error(errors);
-                }
-                return data;
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+    if ('errors' in dataResponse) {
+      console.error('refreshRestaurants', dataResponse.errors);
+      setRestaurants([]);
+      return;
+    }
+    // console.log('---------- fetchGetRestaurants', data, args);
+    const newData = dataResponse.restaurants
+      ? dataResponse.restaurants
+      : dataResponse.nearby_restaurants;
+    setRestaurants(newData);
+  }, []);
 
-        if ('errors' in data) {
-            console.error('refreshRestaurants', data.errors);
-            setRestaurants([]);
-            return;
-        }
-        // console.log('---------- fetchGetRestaurants', data, args);
-        let newData = data.restaurants ? data.restaurants : data.nearby_restaurants;
-        setRestaurants(newData);
-    }, []);
+  useEffect(() => {
+    refreshRestaurants().catch(() => {});
+  }, [refreshRestaurants]);
 
-    useEffect(() => {
-        refreshRestaurants().catch(() => {
-        });
-    }, [refreshRestaurants]);
-
-    return (
-        <ApolloProvider client={apolloClient}>
-            <Component
-                {...pageProps}
-                restaurants={restaurants}
-                refreshRestaurants={refreshRestaurants}
-            />
-        </ApolloProvider>
-    );
+  return (
+    <ApolloProvider client={apolloClient}>
+      <Component
+        {...pageProps}
+        restaurants={restaurants}
+        refreshRestaurants={refreshRestaurants}
+      />
+    </ApolloProvider>
+  );
 }
 
 export default MyApp;
