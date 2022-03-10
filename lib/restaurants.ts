@@ -34,3 +34,26 @@ export async function getSortedRestaurantsData(q: string | string[]) {
 
   return { response };
 }
+
+export async function getRestaurantById(id: number) {
+  const gql = `
+  query GetRestaurantById {
+        restaurants(
+            limit: 1,
+            where: {id: {_eq: "${id}"}}
+        ){
+            id
+            name
+            address
+            amenity
+            distance
+        }
+  }
+`;
+
+  const response = await fetchGetRestaurants(gql);
+
+  console.log('getRestaurantById', response);
+
+  return { response };
+}

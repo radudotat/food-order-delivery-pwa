@@ -7,11 +7,17 @@ import apolloClient, {
   getRestaurantsQuery,
 } from '../lib/apollo';
 import { getParsedCookie } from '../lib/cookies';
-import { Restaurant } from '../lib/types/restaurants';
+import { RestaurantsList } from '../lib/types/restaurants';
+import {useModal} from "../components/modals/useModal";
+import ModalAuth from "../components/modals/ModalAuth";
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const { isShown, toggle } = useModal();
+
+    const onConfirm = () => toggle();
+    const onCancel = () => toggle();
   // console.log(apolloClient)
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [restaurants, setRestaurants] = useState<RestaurantsList[]>([]);
   const refreshRestaurants = useCallback(async (...args) => {
     let gql = getRestaurantsQuery;
     // console.log(
@@ -77,6 +83,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         restaurants={restaurants}
         refreshRestaurants={refreshRestaurants}
       />
+        <ModalAuth
+            isShown={isShown}
+            hide={toggle}
+            headerText='Confirmation'
+            modalContent={
+                <div>Modal Content</div>
+            }
+        />
     </ApolloProvider>
   );
 }

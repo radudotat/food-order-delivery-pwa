@@ -2,12 +2,13 @@ import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { getSortedRestaurantsData } from '../lib/restaurants';
 import styles from '../styles/search.module.css';
+import {RestaurantsList} from "../lib/types/restaurants";
 
 export default function Search() {
   const searchRef = useRef<HTMLDivElement | null>(null);
-  const [query, setQuery] = useState('');
-  const [active, setActive] = useState(false);
-  const [results, setResults] = useState([]);
+  const [query, setQuery] = useState<string>('');
+  const [active, setActive] = useState<boolean>(false);
+  const [results, setResults] = useState<RestaurantsList[]>([]);
 
   useEffect(() => {
     if (query.length > 2) {

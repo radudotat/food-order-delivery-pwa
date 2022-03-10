@@ -38,6 +38,22 @@ export const getRestaurantsQuery = `
   }
 `;
 
+export const getRestaurantByIdQuery = `
+  query GetRestaurants {
+        restaurants(
+            limit: 9,
+            where: {id: {_eq: "13434"}},
+            order_by: {name: asc}
+        ){
+            id
+            name
+            address
+            amenity
+            distance
+        }
+  }
+`;
+
 // const getRestaurantsByLocationQuery = `
 //               query GetNearbyRestaurants {
 //                 nearby_restaurants(args: {
