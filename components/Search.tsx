@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { getSortedRestaurantsData } from '../lib/restaurants';
+import { RestaurantsList } from '../lib/types/restaurants';
 import styles from '../styles/search.module.css';
-import {RestaurantsList} from "../lib/types/restaurants";
 
 export default function Search() {
   const searchRef = useRef<HTMLDivElement | null>(null);
@@ -27,8 +27,15 @@ export default function Search() {
     }
   }, [query]);
 
-  const onChange = useCallback(async (event) => {
-    const newQuery = event.target.value;
+  const onClick = useCallback((event) => {
+    if (searchRef.current && !searchRef.current.contains(event.target)) {
+      setActive(false);
+      window.removeEventListener('click', onClick);
+    }
+  }, []);
+
+  const onChange = useCallback(async (event: any) => {
+    const newQuery = await event.target.value;
     if (newQuery.length >= 0) {
       setQuery(newQuery);
     } else {
@@ -38,14 +45,7 @@ export default function Search() {
 
   const onFocus = useCallback(() => {
     setActive(true);
-    window.addEventListener('click', onClick);
-  }, []);
-
-  const onClick = useCallback((event) => {
-    if (searchRef.current && !searchRef.current.contains(event.target)) {
-      setActive(false);
-      window.removeEventListener('click', onClick);
-    }
+    // window.addEventListener('click', onClick);
   }, []);
 
   return (

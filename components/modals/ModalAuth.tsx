@@ -1,7 +1,8 @@
-import React from 'react';
+import { css } from '@emotion/react';
+// import React from 'react';
 import ReactDOM from 'react-dom';
-import {Button} from "react-scroll";
-import {css} from "@emotion/react";
+import Modal from 'react-modal';
+import { Button } from 'react-scroll';
 
 export const wrapper = css`
   position: fixed;
@@ -63,28 +64,30 @@ export const content = css`
 `;
 
 type Props = {
-    isShown: boolean;
-    hide: () => void;
-    modalContent: JSX.Element;
-    headerText: string;
-}
+  isShown: boolean;
+  hide: () => void;
+  modalContent: JSX.Element;
+  headerText: string;
+};
 
 const ModalAuth = (props: Props) => {
-    const modal = (
-        <>
-            <div css={wrapper}>
-                <div css={backdrop}>
-                    <header css={header}>
-                        <h1 css={headerText}>{props.headerText}</h1>
-                        <Button css={closeButton} onClick={props.hide} to={''}>X</Button>
-                    </header>
-                    <div css={content}>{props.modalContent}</div>
-                </div>
-            </div>
-        </>
-    );
+  const modal = (
+    <Modal isOpen={props.isShown} contentLabel="Example Modal">
+      <div css={wrapper}>
+        <div css={backdrop}>
+          <header css={header}>
+            <h1 css={headerText}>{props.headerText}</h1>
+            <Button css={closeButton} onClick={props.hide} to="">
+              X
+            </Button>
+          </header>
+          <div css={content}>{props.modalContent}</div>
+        </div>
+      </div>
+    </Modal>
+  );
 
-    return props.isShown ? ReactDOM.createPortal(modal, document.body) : null;
+  return props.isShown ? ReactDOM.createPortal(modal, document.body) : null;
 };
 
 export default ModalAuth;

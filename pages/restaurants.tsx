@@ -13,14 +13,14 @@ import {
 } from '../lib/cookies';
 import { getRestaurants } from '../lib/database';
 import { formatPrice } from '../lib/helpers';
-import { Restaurant, RestaurantsList } from '../lib/types/restaurants';
+import { Restaurant } from '../lib/types/restaurants';
 // import Layout from '../components/Layout';
 import PizzaIso from '../public/svg/pizza-iso.svg';
 import styles from '../styles/Home.module.css';
 
 type Props = {
   //   setRestaurants: () => void;
-  restaurants: RestaurantsList;
+  restaurants: Restaurant[];
   reservedRestaurants: ReservedRestaurants;
 };
 

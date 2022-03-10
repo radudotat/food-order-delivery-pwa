@@ -2,20 +2,20 @@ import '../styles/globals.css';
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import { useCallback, useEffect, useState } from 'react';
+import ModalAuth from '../components/modals/ModalAuth';
+import { useModal } from '../components/modals/useModal';
 import apolloClient, {
   fetchGetRestaurants,
   getRestaurantsQuery,
 } from '../lib/apollo';
 import { getParsedCookie } from '../lib/cookies';
 import { RestaurantsList } from '../lib/types/restaurants';
-import {useModal} from "../components/modals/useModal";
-import ModalAuth from "../components/modals/ModalAuth";
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const { isShown, toggle } = useModal();
+  const { isShown, toggle } = useModal();
 
-    const onConfirm = () => toggle();
-    const onCancel = () => toggle();
+  // const onConfirm = () => toggle();
+  // const onCancel = () => toggle();
   // console.log(apolloClient)
   const [restaurants, setRestaurants] = useState<RestaurantsList[]>([]);
   const refreshRestaurants = useCallback(async (...args) => {
@@ -83,14 +83,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         restaurants={restaurants}
         refreshRestaurants={refreshRestaurants}
       />
-        <ModalAuth
-            isShown={isShown}
-            hide={toggle}
-            headerText='Confirmation'
-            modalContent={
-                <div>Modal Content</div>
-            }
-        />
+      <ModalAuth
+        isShown={isShown}
+        hide={toggle}
+        headerText="Confirmation"
+        modalContent={<div>Modal Content</div>}
+      />
     </ApolloProvider>
   );
 }
