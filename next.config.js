@@ -9,6 +9,9 @@ const nextConfig = {
     locales: ['en'],
     defaultLocale: 'en',
   },
+  images: {
+    domains: [process.env.IMAGES_DOMAIN],
+  },
   env: {
     GRAPHQL_ENDPOINT: process.env.GRAPHQL_ENDPOINT,
   },

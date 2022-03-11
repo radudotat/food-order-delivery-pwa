@@ -60,3 +60,11 @@ export async function getRestaurantById(id: number) {
 
   return { response };
 }
+
+export async function updateRestaurantById(id: number) {
+  return id;
+}
+
+export async function deleteRestaurantById(id: number) {
+  return id;
+}

@@ -2,5 +2,3 @@ build
 
 # Next.js build folder
 .next
-public
-cache

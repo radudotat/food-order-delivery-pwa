@@ -1,6 +1,7 @@
 // import type { NextPage } from 'next';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
+import Image, { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
 // import Image from 'next/image'
 import { useEffect } from 'react';
@@ -14,9 +15,6 @@ import { Restaurant } from '../lib/types/restaurants';
 // import { watchGeolocation } from '../helpers/geolocation';
 import styles from '../styles/Home.module.css';
 
-import Image from 'next/image'
-
-
 // import {DocumentNode, gql, useQuery} from '@apollo/client'
 // import {graphql} from 'graphql'
 
@@ -29,11 +27,13 @@ type Props = {
 };
 
 export default function Home(props: Props) {
-    const myLoader = ({ src, width, quality }) => {
-        if (!props.imagesUrl) throw new Error('IMAGES API address not defined');
+  const myLoader = ({ src, width, quality }: ImageLoaderProps) => {
+    if (!props.imagesUrl) throw new Error('IMAGES API address not defined');
 
-        return `${props.imagesUrl}restaurants/1080/${src}?w=${width}&q=${quality || 75}`
-    }
+    return `${props.imagesUrl}/restaurants/1080/${src}?w=${width}&q=${
+      quality || 75
+    }`;
+  };
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
@@ -101,13 +101,13 @@ export default function Home(props: Props) {
               <Link key={restaurant.id} href={`/restaurants/${restaurant.id}`}>
                 <a className={styles.card}>
                   <Image
-                      className="cover"
-                      loader={myLoader}
-                      src={restaurant.cover}
-                      alt={`Cover photo of the ${restaurant.name}`}
-                      width={500}
-                      height={500}
-                      // layout="cover"
+                    className="cover"
+                    loader={myLoader}
+                    src={restaurant.cover}
+                    alt={`Cover photo of the ${restaurant.name}`}
+                    width={500}
+                    height={500}
+                    // layout="cover"
                   />
                   <h2>{restaurant.name}</h2>
                   <p>{restaurant.address}</p>
