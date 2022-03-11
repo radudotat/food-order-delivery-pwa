@@ -81,7 +81,7 @@
     "@typescript-eslint/utils": "5.13.0"
   },
   "engines": {
-    "node": ">16.x",
+    "node": ">=16.x",
     "yarn": "^1.x"
   }
 }

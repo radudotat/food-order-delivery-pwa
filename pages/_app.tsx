@@ -42,6 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   name
                   address
                   amenity
+                  cover
                   distance
                 }
               }

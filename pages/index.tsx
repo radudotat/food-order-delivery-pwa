@@ -14,6 +14,9 @@ import { Restaurant } from '../lib/types/restaurants';
 // import { watchGeolocation } from '../helpers/geolocation';
 import styles from '../styles/Home.module.css';
 
+import Image from 'next/image'
+
+
 // import {DocumentNode, gql, useQuery} from '@apollo/client'
 // import {graphql} from 'graphql'
 
@@ -22,9 +25,16 @@ type Props = {
   csrfToken: string;
   // client: any;
   restaurants: any;
+  imagesUrl: string;
 };
 
 export default function Home(props: Props) {
+    const myLoader = ({ src, width, quality }) => {
+        if (!props.imagesUrl) throw new Error('IMAGES API address not defined');
+
+        return `${props.imagesUrl}restaurants/1080/${src}?w=${width}&q=${quality || 75}`
+    }
+
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       const sw = navigator.serviceWorker;
@@ -90,6 +100,15 @@ export default function Home(props: Props) {
             {props.restaurants.map((restaurant: Restaurant) => (
               <Link key={restaurant.id} href={`/restaurants/${restaurant.id}`}>
                 <a className={styles.card}>
+                  <Image
+                      className="cover"
+                      loader={myLoader}
+                      src={restaurant.cover}
+                      alt={`Cover photo of the ${restaurant.name}`}
+                      width={500}
+                      height={500}
+                      // layout="cover"
+                  />
                   <h2>{restaurant.name}</h2>
                   <p>{restaurant.address}</p>
                 </a>
@@ -126,8 +145,11 @@ export function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
+  const imagesUrl: string | undefined = process.env.IMAGES_ENDPOINT;
+
   return {
     props: {
+      imagesUrl: imagesUrl,
       csrfToken: createCsrfToken(),
     },
   };

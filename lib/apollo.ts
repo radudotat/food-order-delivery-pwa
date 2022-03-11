@@ -29,11 +29,13 @@ export const getRestaurantsQuery = `
             where: {address: {_neq: ""}},
             order_by: {name: asc}
         ){
-            id
-            name
-            address
-            amenity
-            distance
+          id
+          name
+          address
+          amenity
+          cuisine
+          cover
+          distance
         }
   }
 `;
@@ -45,11 +47,13 @@ export const getRestaurantByIdQuery = `
             where: {id: {_eq: "13434"}},
             order_by: {name: asc}
         ){
-            id
-            name
-            address
-            amenity
-            distance
+          id
+          name
+          address
+          amenity
+          cuisine
+          cover
+          distance
         }
   }
 `;
@@ -78,10 +82,13 @@ export const operation = `
       }
     }
     restaurants(limit: 9, where: {address: {_neq: ""}, _and: {_and: {id: {_gt: 10}}}}, order_by: {name: asc}) {
-      id
-      name
-      address
-      amenity
+          id
+          name
+          address
+          amenity
+          cuisine
+          cover
+          distance
     }
   }
 `;

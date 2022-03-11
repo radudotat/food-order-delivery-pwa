@@ -24,6 +24,7 @@ export async function getSortedRestaurantsData(q: string | string[]) {
           address
           amenity
           cuisine
+          cover
         }
       }
     `;
@@ -42,11 +43,13 @@ export async function getRestaurantById(id: number) {
             limit: 1,
             where: {id: {_eq: "${id}"}}
         ){
-            id
-            name
-            address
-            amenity
-            distance
+          id
+          name
+          address
+          amenity
+          cuisine
+          cover
+          distance
         }
   }
 `;

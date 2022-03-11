@@ -23,6 +23,12 @@ export default function Layout(props: Props) {
                 <link rel="icon" href="/icons/maskable_icon_x48.png"/>
                 <link rel="apple-touch-icon" href="/icon-192.png"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <meta httpEquiv="Content-Security-Policy"
+                      content="default-src 'self' *.radu.at; script-src 'self' 'unsafe-eval' *.radu.at; img-src 'self' data: *.radu.at; style-src 'self' 'unsafe-inline'"/>
+                <meta httpEquiv="X-Content-Security-Policy"
+                      content="default-src 'self' *.radu.at; script-src 'self' 'unsafe-eval' *.radu.at; img-src 'self' data: *.radu.at; style-src 'self' 'unsafe-inline'"/>
+                <meta httpEquiv="X-WebKit-CSP"
+                      content="default-src 'self' *.radu.at; script-src 'self' 'unsafe-eval' *.radu.at; img-src 'self' data: *.radu.at; style-src 'self' 'unsafe-inline'"/>
             </Head>
 
             <Header/>
