@@ -1,22 +1,17 @@
-// import type { NextPage } from 'next';
+import '../node_modules/leaflet/dist/leaflet.css';
 import { GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image, { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
-// import Image from 'next/image'
 import { useEffect } from 'react';
 import { Bag, Drone } from '../components/icons';
 import Layout from '../components/Layout';
 import RequestPositionButton from '../components/RequestPositionButton';
 import Search from '../components/Search';
-// import { fetchGetRestaurants, getRestaurantsQuery } from '../lib/apollo';
 import { createCsrfToken } from '../lib/auth';
 import { Restaurant } from '../lib/types/restaurants';
-// import { watchGeolocation } from '../helpers/geolocation';
 import styles from '../styles/Home.module.css';
-
-// import {DocumentNode, gql, useQuery} from '@apollo/client'
-// import {graphql} from 'graphql'
 
 type Props = {
   refreshRestaurants: () => void;
@@ -24,6 +19,7 @@ type Props = {
   // client: any;
   restaurants: any;
   imagesUrl: string;
+  mapUrl: string;
 };
 
 export default function Home(props: Props) {
@@ -35,11 +31,15 @@ export default function Home(props: Props) {
     }`;
   };
 
+  const DynamicMap = dynamic(() => import('../components/Map'), {
+    ssr: false,
+  });
+
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       const sw = navigator.serviceWorker;
       window.addEventListener('load', () => {
-        sw.register('/service-worker.js')
+        sw.register('/sw.js')
           .then(() => sw.ready)
           .then(() => {
             sw.addEventListener('message', ({ data }) => {
@@ -91,11 +91,9 @@ export default function Home(props: Props) {
               <a>Restaurant!</a>
             </Link>
           </h1>
-
           <p className={styles.description}>
             Get started with our best recommendations
           </p>
-
           <div id="restaurants" className={styles.grid}>
             {props.restaurants.map((restaurant: Restaurant) => (
               <Link key={restaurant.id} href={`/restaurants/${restaurant.id}`}>
@@ -114,6 +112,9 @@ export default function Home(props: Props) {
                 </a>
               </Link>
             ))}
+          </div>
+          <div className={styles.mapcontainer}>
+            <DynamicMap mapUrl={props.mapUrl} />
           </div>
         </main>
 
@@ -146,11 +147,13 @@ export function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   const imagesUrl: string | undefined = process.env.IMAGES_ENDPOINT;
+  const mapUrl: string | undefined = process.env.MAP_ENDPOINT;
 
   return {
     props: {
       imagesUrl: imagesUrl,
       csrfToken: createCsrfToken(),
+      mapUrl: mapUrl,
     },
   };
 }

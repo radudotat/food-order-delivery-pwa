@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const withOffline = require('next-offline');
+const withPWA = require('next-pwa');
+const runtimeCaching = require('next-pwa/cache');
+
 require('dotenv-safe').config({
   allowEmptyValues: true,
 });
@@ -16,6 +18,10 @@ const nextConfig = {
     GRAPHQL_ENDPOINT: process.env.GRAPHQL_ENDPOINT,
   },
   reactStrictMode: true,
+  pwa: {
+    dest: 'public',
+    runtimeCaching,
+  },
   // target: 'serverless',
   transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache
   // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
@@ -56,4 +62,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withOffline(nextConfig);
+module.exports = withPWA(nextConfig);
