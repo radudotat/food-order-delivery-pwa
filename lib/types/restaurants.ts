@@ -5,7 +5,7 @@ export type Restaurant = {
   amenity: string;
   cover: string;
   distance: number;
-  location: any
+  location: any;
 };
 
 export type RestaurantsList = {

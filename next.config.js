@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
-const withPWA = require('next-pwa')
-const runtimeCaching = require('next-pwa/cache')
-const { withSentryConfig } = require('@sentry/nextjs')
+const withPWA = require('next-pwa');
+const runtimeCaching = require('next-pwa/cache');
+const { withSentryConfig } = require('@sentry/nextjs');
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -13,11 +13,11 @@ const sentryWebpackPluginOptions = {
   silent: true, // Suppresses all logs
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
-}
+};
 
 require('dotenv-safe').config({
   allowEmptyValues: true,
-})
+});
 
 const nextConfig = {
   i18n: {
@@ -80,6 +80,9 @@ const nextConfig = {
     disableServerWebpackPlugin: true,
     disableClientWebpackPlugin: true,
   },
-}
+};
 
-module.exports = withSentryConfig(withPWA(nextConfig), sentryWebpackPluginOptions)
+module.exports = withSentryConfig(
+  withPWA(nextConfig),
+  sentryWebpackPluginOptions,
+);

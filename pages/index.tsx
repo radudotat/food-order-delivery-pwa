@@ -16,7 +16,6 @@ import styles from '../styles/Home.module.css';
 type Props = {
   refreshRestaurants: () => void;
   csrfToken: string;
-  // client: any;
   restaurants: any;
   imagesUrl: string;
   mapUrl: string;

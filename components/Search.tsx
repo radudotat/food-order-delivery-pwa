@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { getSortedRestaurantsData } from '../lib/restaurants';
-import { RestaurantsList } from '../lib/types/restaurants';
+import { Restaurant } from '../lib/types/restaurants';
 import styles from '../styles/search.module.css';
 
 export default function Search() {
   const searchRef = useRef<HTMLDivElement | null>(null);
   const [query, setQuery] = useState<string>('');
   const [active, setActive] = useState<boolean>(false);
-  const [results, setResults] = useState<RestaurantsList[]>([]);
+  const [results, setResults] = useState<Restaurant[]>([]);
 
   useEffect(() => {
     if (query.length > 2) {

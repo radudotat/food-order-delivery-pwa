@@ -31,7 +31,11 @@ export function setParsedCookie(key: string, value: any) {
   // make sure your cookies don't expire
   const expiration = new Date('01/01/2100');
 
-  Cookies.set(key, JSON.stringify(value), { path: '/', expires: expiration, SameSite: 'Strict' });
+  Cookies.set(key, JSON.stringify(value), {
+    path: '/',
+    expires: expiration,
+    SameSite: 'Strict',
+  });
 }
 
 export function deleteCookie(key: string) {
