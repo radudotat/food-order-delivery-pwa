@@ -1,41 +1,73 @@
-import { Icon, LatLngExpression } from 'leaflet';
-import { MapContainer, Marker, Popup } from 'react-leaflet';
+import {Icon} from 'leaflet';
+import {MapContainer, MapContainerProps, Marker, Popup, useMap} from 'react-leaflet';
 import VectorTileLayer from 'react-leaflet-vector-tile-layer';
 import styles from '../styles/Home.module.css';
+import {Restaurant} from "../lib/types/restaurants";
+import {useCallback, useLayoutEffect, useRef, useState} from "react";
 
 type Props = {
-  mapUrl: string;
+    mapUrl: string;
+    restaurants: Restaurant[]
 };
 
 export default function Map(props: Props) {
-  const position: LatLngExpression = [48.206417, 16.372013];
+    let position: any = [48.206417, 16.372013];
+    const [markers, setMarkers] = useState<Restaurant[]>([]);
+    const mapRef = useRef<any>(null);
+    const onMapLoad = useCallback((map) => {
+        // console.log('whenCreated onMapLoad', map);
+        mapRef.current = map;
+    }, []);
+    const coordinates = [];
 
-  if (!props.mapUrl) throw new Error('Map address not defined');
+    if (!props.mapUrl) throw new Error('Map address not defined');
 
-  const myIcon = new Icon({
-    iconUrl: '/marker-icon.png',
-    iconRetinaUrl: '/marker-icon.png',
-    popupAnchor: [-0, -0],
-    iconSize: [32, 45],
-  });
+    const myIcon = new Icon({
+        iconUrl: '/marker-icon.png',
+        iconRetinaUrl: '/marker-icon.png',
+        popupAnchor: [-0, -0],
+        iconSize: [32, 45],
+    });
 
-  return (
-    <MapContainer
-      className={styles.map}
-      scrollWheelZoom={false}
-      center={position}
-      zoom={14}
-      pitch={60}
-      bearing={0}
-    >
-      {/* <LayersControl position="topright"> */}
-      <VectorTileLayer styleUrl={props.mapUrl} />
-      <Marker position={position} icon={myIcon}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-      {/* </LayersControl> */}
-    </MapContainer>
-  );
+    useLayoutEffect(() => {
+        const [...coordinates] = props.restaurants.map(restaurant => [
+            restaurant.location.coordinates[1],
+            restaurant.location.coordinates[0]
+        ]);
+
+        setTimeout(() => {
+            // console.log('fitBounds', coordinates, mapRef)
+            mapRef.current?.fitBounds(coordinates);
+            setMarkers(props.restaurants);
+        }, 500);
+    }, [props.restaurants]);
+
+    return (
+        <MapContainer
+            whenCreated={onMapLoad}
+            className={styles.map}
+            scrollWheelZoom={false}
+            center={position}
+            zoom={14}
+            pitch={60}
+            bearing={0}
+        >
+            {/* <LayersControl position="topright"> */}
+            <VectorTileLayer styleUrl={props.mapUrl}/>
+            {markers.map((restaurant: Restaurant) => (
+                // console.log('marker', restaurant.location.coordinates)
+                <Marker key={restaurant.id}
+                        position={[restaurant.location.coordinates[1], restaurant.location.coordinates[0]]}
+                        icon={myIcon}>
+                    <Popup>
+                        <h2>{restaurant.name}</h2>
+                        <h3>{restaurant.address}</h3>
+                        {/*{JSON.stringify(restaurant)}*/}
+                    </Popup>
+                </Marker>
+            ))}
+            {/* </LayersControl> */}
+            {/*{JSON.stringify(props)}*/}
+        </MapContainer>
+    );
 }

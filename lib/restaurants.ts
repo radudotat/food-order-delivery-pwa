@@ -25,6 +25,7 @@ export async function getSortedRestaurantsData(q: string | string[]) {
           amenity
           cuisine
           cover
+          location
         }
       }
     `;
@@ -50,6 +51,7 @@ export async function getRestaurantById(id: number) {
           cuisine
           cover
           distance
+          location
         }
   }
 `;

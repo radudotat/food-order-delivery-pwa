@@ -114,7 +114,7 @@ export default function Home(props: Props) {
             ))}
           </div>
           <div className={styles.mapcontainer}>
-            <DynamicMap mapUrl={props.mapUrl} />
+            <DynamicMap restaurants={props.restaurants} mapUrl={props.mapUrl} />
           </div>
         </main>
 

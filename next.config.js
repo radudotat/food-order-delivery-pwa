@@ -33,7 +33,9 @@ const nextConfig = {
   reactStrictMode: true,
   pwa: {
     dest: 'public',
+    scope: '/',
     runtimeCaching,
+    disable: process.env.NODE_ENV === 'development',
   },
   // target: 'serverless',
   transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache

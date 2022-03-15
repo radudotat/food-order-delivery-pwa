@@ -48,6 +48,7 @@ function MyApp({ Component, pageProps }: SentryAppProps) {
                   amenity
                   cover
                   distance
+                  location
                 }
               }
 `;

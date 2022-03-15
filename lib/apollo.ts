@@ -36,6 +36,7 @@ export const getRestaurantsQuery = `
           cuisine
           cover
           distance
+          location
         }
   }
 `;
@@ -54,6 +55,7 @@ export const getRestaurantByIdQuery = `
           cuisine
           cover
           distance
+          location
         }
   }
 `;
@@ -89,6 +91,7 @@ export const operation = `
           cuisine
           cover
           distance
+          location
     }
   }
 `;
