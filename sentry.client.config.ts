@@ -6,7 +6,8 @@ if (process.env.NODE_ENV === 'production') {
 
   Sentry.init({
     environment: process.env.NODE_ENV,
-    dsn: SENTRY_DSN || 'https://examplePublicKey@o0.ingest.sentry.io/0',
+    sendClientReports: false,
+    dsn: SENTRY_DSN,
     // We recommend adjusting this value in production, or using tracesSampler
     // for finer control
     tracesSampleRate: 1.0,
