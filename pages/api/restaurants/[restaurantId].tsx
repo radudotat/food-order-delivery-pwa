@@ -1,4 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { withSentry } from "@sentry/nextjs";
+
 import {
   deleteRestaurantById,
   getRestaurantById,
@@ -18,12 +20,12 @@ export type RestaurantResponseBody =
   | { error: string }
   | { restaurant: Restaurant };
 
-export default async function handler(
+const handler = async function handler(
   request: RestaurantNextApiRequest,
   response: NextApiResponse<RestaurantResponseBody>,
 ) {
   console.log('is this the id', request.query.restaurantId);
-
+  response.status(200).json({ error: 'restaurant found' });
   const restaurantId = Number(request.query.restaurantId);
   // check that the id passed is a number
 
@@ -82,3 +84,5 @@ export default async function handler(
 
   response.status(405).json({ error: 'Method not Allowed' });
 }
+
+export default withSentry(handler);

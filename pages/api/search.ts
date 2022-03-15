@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { withSentry } from "@sentry/nextjs";
 import { getSortedRestaurantsData } from '../../lib/restaurants';
 import { IndexResponseBody } from '../../lib/types/restaurants';
 
@@ -9,7 +10,7 @@ import { IndexResponseBody } from '../../lib/types/restaurants';
 // ? getSortedRestaurantsData()
 // : require('../../cache/data/restaurants').nearby_restaurants
 
-export default function handler(
+const handler = async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IndexResponseBody>,
 ) {
@@ -25,3 +26,5 @@ export default function handler(
   // res.setHeader('Content-Type', 'application/json');
   // res.end(JSON.stringify({results}));
 }
+
+export default withSentry(handler);

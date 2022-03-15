@@ -11,7 +11,11 @@ import apolloClient, {
 import { getParsedCookie } from '../lib/cookies';
 import { RestaurantsList } from '../lib/types/restaurants';
 
-function MyApp({ Component, pageProps }: AppProps) {
+interface SentryAppProps extends AppProps {
+    err: any;
+}
+
+function MyApp({ Component, pageProps }: SentryAppProps) {
   const { isShown, toggle } = useModal();
 
   // const onConfirm = () => toggle();
@@ -83,6 +87,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         {...pageProps}
         restaurants={restaurants}
         refreshRestaurants={refreshRestaurants}
+        err={pageProps.err}
       />
       <ModalAuth
         isShown={isShown}
