@@ -24,7 +24,7 @@ export default function Map(props: Props) {
     iconUrl: '/marker-icon.png',
     iconRetinaUrl: '/marker-icon.png',
     popupAnchor: [-0, -0],
-    iconSize: [32, 45],
+    iconSize: [25, 41],
   });
 
   useLayoutEffect(() => {

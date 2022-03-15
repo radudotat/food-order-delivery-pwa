@@ -102,8 +102,8 @@ export default function Home(props: Props) {
                     loader={myLoader}
                     src={restaurant.cover}
                     alt={`Cover photo of the ${restaurant.name}`}
-                    width={500}
-                    height={500}
+                    width={250}
+                    height={166}
                     // layout="cover"
                   />
                   <h2>{restaurant.name}</h2>
