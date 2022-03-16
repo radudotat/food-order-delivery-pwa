@@ -9,14 +9,30 @@ import apolloClient, {
   getRestaurantsQuery,
 } from '../lib/apollo';
 import { getParsedCookie } from '../lib/cookies';
-import {Restaurant} from "../lib/types/restaurants";
+import { Restaurant } from '../lib/types/restaurants';
 
 interface SentryAppProps extends AppProps {
-    err: any;
+  err: any;
 }
 
 function MyApp({ Component, pageProps }: SentryAppProps) {
   const { isShown, toggle } = useModal();
+
+  const [user, setUser] = useState();
+
+  const refreshUserProfile = useCallback(async () => {
+    const response = await fetch('/api/profile');
+    const data = await response.json();
+    console.log(data);
+
+    if ('errors' in data) {
+      console.log(data.errors);
+      setUser(undefined);
+      return;
+    }
+
+    setUser(data.user);
+  }, []);
 
   // const onConfirm = () => toggle();
   // const onCancel = () => toggle();
@@ -79,13 +95,16 @@ function MyApp({ Component, pageProps }: SentryAppProps) {
   }, []);
 
   useEffect(() => {
+    refreshUserProfile().catch(() => {});
     refreshRestaurants().catch(() => {});
-  }, [refreshRestaurants]);
+  }, [refreshRestaurants, refreshUserProfile]);
 
   return (
     <ApolloProvider client={apolloClient}>
       <Component
         {...pageProps}
+        userObject={user}
+        refreshUserProfile={refreshUserProfile}
         restaurants={restaurants}
         refreshRestaurants={refreshRestaurants}
         err={pageProps.err}

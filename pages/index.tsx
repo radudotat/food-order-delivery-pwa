@@ -4,12 +4,14 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image, { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Bag, Drone } from '../components/icons';
 import Layout from '../components/Layout';
 import RequestPositionButton from '../components/RequestPositionButton';
 import Search from '../components/Search';
+import UserMenu from '../components/UserMenu';
 import { createCsrfToken } from '../lib/auth';
+import { User } from '../lib/database';
 import { Restaurant } from '../lib/types/restaurants';
 import styles from '../styles/Home.module.css';
 
@@ -19,6 +21,7 @@ type Props = {
   restaurants: any;
   imagesUrl: string;
   mapUrl: string;
+  userObject: User;
 };
 
 export default function Home(props: Props) {
@@ -29,6 +32,19 @@ export default function Home(props: Props) {
       quality || 75
     }`;
   };
+
+  const [userId, setUserId] = useState<number>();
+  function changeUserId(id: number) {
+    setUserId(id);
+  }
+
+  const isLoggedIn: boolean = userId ? userId > 0 : false;
+
+  // Avoid error if userId is undefined
+  if (typeof userId === 'number') {
+    const multipliedUserId = userId * 2;
+    changeUserId(multipliedUserId);
+  }
 
   const DynamicMap = dynamic(() => import('../components/Map'), {
     ssr: false,
@@ -54,7 +70,7 @@ export default function Home(props: Props) {
   }, []);
 
   return (
-    <Layout csrfToken={props.csrfToken}>
+    <Layout csrfToken={props.csrfToken} userObject={props.userObject}>
       <div className={styles.container}>
         <Head children={null} />
         <nav className={styles.sticky}>
@@ -70,7 +86,9 @@ export default function Home(props: Props) {
                 <li>
                   <Bag />
                 </li>
-                {/* <li><Menu /></li> */}
+                <li>
+                  <UserMenu isLoggedIn={isLoggedIn} />
+                </li>
               </ul>
             </div>
           </div>
@@ -81,7 +99,7 @@ export default function Home(props: Props) {
           <RequestPositionButton
             refreshRestaurants={props.refreshRestaurants}
           />
-          {/* {JSON.stringify(props)} */}
+          {JSON.stringify(props.userObject)}
         </div>
         <main className={styles.main}>
           <h1 className={styles.title}>

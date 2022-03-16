@@ -1,9 +1,11 @@
 import Head from 'next/head';
 import React from 'react';
+import { User } from '../../lib/database';
 import Header from './Header';
 
 type Props = {
   csrfToken: string;
+  userObject: User;
   children:
     | boolean
     | React.ReactChild
@@ -43,7 +45,7 @@ export default function Layout(props: Props) {
         />
       </Head>
 
-      <Header />
+      <Header userObject={props.userObject} />
 
       <main>{props.children}</main>
     </>
