@@ -199,6 +199,12 @@ img.cover {
   border-radius: 10px;
 }
 
+.restaurantCover {
+  margin: 0;
+  max-height: 200px;
+  border-radius: 10px;
+}
+
 .logo {
   height: 1em;
   margin-left: 0.5rem;

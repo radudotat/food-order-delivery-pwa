@@ -23,7 +23,7 @@ type Props = {
 };
 
 export default function Home(props: Props) {
-  const myLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
     if (!props.imagesUrl) throw new Error('IMAGES API address not defined');
 
     return `${props.imagesUrl}/restaurants/1080/${src}?w=${width}&q=${
@@ -100,11 +100,11 @@ export default function Home(props: Props) {
                 <a className={styles.card}>
                   <Image
                     className="cover"
-                    loader={myLoader}
+                    loader={imageLoader}
                     src={restaurant.cover}
                     alt={`Cover photo of the ${restaurant.name}`}
-                    width={500}
-                    height={500}
+                    width={250}
+                    height={166}
                     // layout="cover"
                   />
                   <h2>{restaurant.name}</h2>

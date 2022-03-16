@@ -13,12 +13,12 @@ type Props = {
 export default function Map(props: Props) {
     let position: any = [48.206417, 16.372013];
     const [markers, setMarkers] = useState<Restaurant[]>([]);
+    const [coordinates, setCoordinates] = useState<Restaurant[]>([]);
     const mapRef = useRef<any>(null);
     const onMapLoad = useCallback((map) => {
         // console.log('whenCreated onMapLoad', map);
         mapRef.current = map;
     }, []);
-    const coordinates = [];
 
     if (!props.mapUrl) throw new Error('Map address not defined');
 

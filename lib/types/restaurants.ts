@@ -1,3 +1,5 @@
+import {NextApiRequest} from "next";
+
 export type Restaurant = {
   id: number;
   name: string;
@@ -5,14 +7,18 @@ export type Restaurant = {
   amenity: string;
   cover: string;
   distance: number;
-  location: any
+  location: any,
+  imagesUrl: string;
 };
-
-export type RestaurantsList = {
-  id: number;
-  name: string;
-}[];
 
 export type IndexResponseBody = {
   restaurants: string;
+};
+
+type RestaurantRequestBody = {
+  restaurant: Restaurant;
+};
+
+type RestaurantNextApiRequest = Omit<NextApiRequest, 'body'> & {
+  body: RestaurantRequestBody;
 };

@@ -9,7 +9,7 @@ import apolloClient, {
   getRestaurantsQuery,
 } from '../lib/apollo';
 import { getParsedCookie } from '../lib/cookies';
-import { RestaurantsList } from '../lib/types/restaurants';
+import {Restaurant} from "../lib/types/restaurants";
 
 interface SentryAppProps extends AppProps {
     err: any;
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: SentryAppProps) {
   // const onConfirm = () => toggle();
   // const onCancel = () => toggle();
   // console.log(apolloClient)
-  const [restaurants, setRestaurants] = useState<RestaurantsList[]>([]);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const refreshRestaurants = useCallback(async (...args) => {
     let gql = getRestaurantsQuery;
     // console.log(
