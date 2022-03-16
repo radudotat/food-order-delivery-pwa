@@ -19,6 +19,6 @@ type RestaurantRequestBody = {
   restaurant: Restaurant;
 };
 
-type RestaurantNextApiRequest = Omit<NextApiRequest, 'body'> & {
-  body: RestaurantRequestBody;
-};
+// type RestaurantNextApiRequest = Omit<NextApiRequest, 'body'> & {
+//   body: RestaurantRequestBody;
+// };

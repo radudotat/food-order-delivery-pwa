@@ -35,8 +35,8 @@ const nextConfig = {
     dest: 'public',
     scope: '/',
     runtimeCaching,
-    disable: process.env.NODE_ENV === 'development',
-    mode: 'production'
+    // disable: process.env.NODE_ENV === 'development',
+    mode: process.env.NODE_ENV
   },
   // target: 'serverless',
   transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache

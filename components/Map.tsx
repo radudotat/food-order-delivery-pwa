@@ -1,4 +1,4 @@
-import {Icon} from 'leaflet';
+import {Bounds, BoundsExpression, Icon, LatLngBoundsExpression} from 'leaflet';
 import {MapContainer, MapContainerProps, Marker, Popup, useMap} from 'react-leaflet';
 import VectorTileLayer from 'react-leaflet-vector-tile-layer';
 import styles from '../styles/Home.module.css';
@@ -13,7 +13,7 @@ type Props = {
 export default function Map(props: Props) {
     let position: any = [48.206417, 16.372013];
     const [markers, setMarkers] = useState<Restaurant[]>([]);
-    const [coordinates, setCoordinates] = useState<Restaurant[]>([]);
+    const [coordinates, setCoordinates] = useState<LatLngBoundsExpression>([[48.200491, 16.350568], [48.215820, 16.396487]]);
     const mapRef = useRef<any>(null);
     const onMapLoad = useCallback((map) => {
         // console.log('whenCreated onMapLoad', map);
@@ -36,7 +36,7 @@ export default function Map(props: Props) {
         ]);
 
         setTimeout(() => {
-            // console.log('fitBounds', coordinates, mapRef)
+            console.log('fitBounds', coordinates, mapRef)
             mapRef.current?.fitBounds(coordinates);
             setMarkers(props.restaurants);
         }, 500);
@@ -62,6 +62,7 @@ export default function Map(props: Props) {
                     <Popup>
                         <h2>{restaurant.name}</h2>
                         <h3>{restaurant.address}</h3>
+                        <small>{restaurant.distance}m</small>
                         {/*{JSON.stringify(restaurant)}*/}
                     </Popup>
                 </Marker>

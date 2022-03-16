@@ -109,6 +109,7 @@ export default function Home(props: Props) {
                   />
                   <h2>{restaurant.name}</h2>
                   <p>{restaurant.address}</p>
+                  <p>{restaurant.distance}m</p>
                 </a>
               </Link>
             ))}
