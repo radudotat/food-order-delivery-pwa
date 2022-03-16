@@ -42,18 +42,24 @@ export default function Map(props: Props) {
   });
 
   useLayoutEffect(() => {
-    // console.log('useLayoutEffect')
-    const restaurantsCoordinates: LatLngBoundsExpression =
-      props.restaurants.map((restaurant) => [
+    let restaurantsCoordinates: LatLngBoundsExpression = props.restaurants.map(
+      (restaurant) => [
         restaurant.location.coordinates[1],
         restaurant.location.coordinates[0],
-      ]);
+      ],
+    );
 
-    setCoordinates(restaurantsCoordinates);
+    // console.log('useLayoutEffect', coordinates, restaurantsCoordinates);
+
+    if (restaurantsCoordinates.length === 0) {
+      restaurantsCoordinates = coordinates;
+    }
+
+    // setCoordinates(restaurantsCoordinates); //REMINDER@Radu: Don't setState here, will start a loop
 
     setTimeout(() => {
       console.log('fitBounds', coordinates, mapRef);
-      mapRef.current?.fitBounds(coordinates);
+      mapRef.current?.fitBounds(restaurantsCoordinates);
       setMarkers(props.restaurants);
     }, 500);
   }, [props.restaurants, coordinates]);
