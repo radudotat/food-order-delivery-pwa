@@ -58,8 +58,8 @@ const handler = async function handler(
 
     // TODO: create error responses when the body don't have the full data. with a 400 status code
 
-    const updatedRestaurant = await updateRestaurantById(
-      restaurantFromRequest.id,
+    const updatedRestaurant = updateRestaurantById(
+        restaurantFromRequest.id,
     );
 
     if (!updatedRestaurant) {
