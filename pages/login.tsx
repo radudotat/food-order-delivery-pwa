@@ -1,12 +1,12 @@
-import { css } from '@emotion/react';
-import { GetServerSidePropsContext } from 'next';
+import {css} from '@emotion/react';
+import {GetServerSidePropsContext} from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import {useRouter} from 'next/router';
+import {useState} from 'react';
 import Layout from '../components/Layout';
-import { createCsrfToken } from '../lib/auth';
-import { getValidSessionByToken } from '../lib/database';
-import { LoginResponseBody } from './api/login';
+import {createCsrfToken} from '../lib/auth';
+import {getValidSessionByToken} from '../lib/database';
+import {LoginResponseBody} from './api/login';
 
 const errorStyles = css`
   color: red;
@@ -27,10 +27,10 @@ export default function Login(props: Props) {
   const router = useRouter();
 
   return (
-    <Layout userObject={props.userObject}>
+    <Layout csrfToken={props.csrfToken} userObject={props.userObject}>
       <Head>
         <title>Login</title>
-        <meta name="description" content="Login on this website" />
+        <meta name="description" content="Login on this website"/>
       </Head>
 
       <h1>Login</h1>
