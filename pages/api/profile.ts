@@ -1,5 +1,5 @@
-import {NextApiRequest, NextApiResponse} from 'next';
-import {getUserByValidSessionToken} from '../../lib/database';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { getUserByValidSessionToken } from '../../lib/database';
 
 export default async function handler(
   req: NextApiRequest,

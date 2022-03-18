@@ -1,18 +1,18 @@
 import '../node_modules/leaflet/dist/leaflet.css';
-import {GetServerSidePropsContext} from 'next';
+import { GetServerSidePropsContext } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import Image, {ImageLoaderProps} from 'next/image';
+import Image, { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
-import {useEffect, useState} from 'react';
-import {Bag, Drone} from '../components/icons';
+import { useEffect, useState } from 'react';
+import { Bag, Drone } from '../components/icons';
 import Layout from '../components/Layout';
 import RequestPositionButton from '../components/RequestPositionButton';
 import Search from '../components/Search';
 import UserMenu from '../components/UserMenu';
-import {createCsrfToken} from '../lib/auth';
-import {User} from '../lib/database';
-import {Restaurant} from '../lib/types/restaurants';
+import { createCsrfToken } from '../lib/auth';
+import { User } from '../lib/database';
+import { Restaurant } from '../lib/types/restaurants';
 import styles from '../styles/Home.module.css';
 
 type Props = {
@@ -25,7 +25,7 @@ type Props = {
 };
 
 export default function Home(props: Props) {
-  const imageLoader = ({src, width, quality}: ImageLoaderProps) => {
+  const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
     if (!props.imagesUrl) throw new Error('IMAGES API address not defined');
 
     return `${props.imagesUrl}/restaurants/1080/${src}?w=${width}&q=${
@@ -58,7 +58,7 @@ export default function Home(props: Props) {
         sw.register('/sw.js')
           .then(() => sw.ready)
           .then(() => {
-            sw.addEventListener('message', ({data}) => {
+            sw.addEventListener('message', ({ data }) => {
               if (data?.state !== undefined) {
                 // setCounter(data.state);
                 console.log(data);
@@ -73,23 +73,23 @@ export default function Home(props: Props) {
   return (
     <Layout csrfToken={props.csrfToken} userObject={props.userObject}>
       <div className={styles.container}>
-        <Head children={null}/>
+        <Head children={null} />
         <nav className={styles.sticky}>
           <div className={styles.navLayout}>
             <div className={styles.logoArea}>GeoFood</div>
 
             <div className={styles.searchArea}>
-              <Search/>
+              <Search />
             </div>
 
             <div className={styles.cartArea}>
               <ul>
                 <li>
-                  <Bag/>
+                  <Bag />
                 </li>
                 {props.userObject ? (
                   <li>
-                    <UserMenu isLoggedIn={isLoggedIn}/>
+                    <UserMenu isLoggedIn={isLoggedIn} />
                   </li>
                 ) : (
                   <>
@@ -105,15 +105,13 @@ export default function Home(props: Props) {
                     </li>
                   </>
                 )}
-                <li>
-
-                </li>
+                <li></li>
               </ul>
             </div>
           </div>
         </nav>
         <div className={styles.hero}>
-          <Drone/>
+          <Drone />
           <h1>Easy food Order & Delivery near you!</h1>
           <RequestPositionButton
             refreshRestaurants={props.refreshRestaurants}
@@ -151,7 +149,7 @@ export default function Home(props: Props) {
             ))}
           </div>
           <div className={styles.mapcontainer}>
-            <DynamicMap restaurants={props.restaurants} mapUrl={props.mapUrl}/>
+            <DynamicMap restaurants={props.restaurants} mapUrl={props.mapUrl} />
           </div>
         </main>
 

@@ -1,8 +1,8 @@
-import {Icon, LatLngBoundsExpression, LatLngExpression} from 'leaflet';
-import {useCallback, useLayoutEffect, useRef, useState} from 'react';
-import {MapContainer, Marker, Popup} from 'react-leaflet';
+import { Icon, LatLngBoundsExpression, LatLngExpression } from 'leaflet';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { MapContainer, Marker, Popup } from 'react-leaflet';
 import VectorTileLayer from 'react-leaflet-vector-tile-layer';
-import {Restaurant} from '../lib/types/restaurants';
+import { Restaurant } from '../lib/types/restaurants';
 import styles from '../styles/Home.module.css';
 
 type Props = {
@@ -75,8 +75,8 @@ export default function Map(props: Props) {
       bearing={0}
     >
       {/* <LayersControl position="topright"> */}
-      <VectorTileLayer styleUrl={props.mapUrl}/>
-      <Marker position={position} icon={userIcon}/>
+      <VectorTileLayer styleUrl={props.mapUrl} />
+      <Marker position={position} icon={userIcon} />
       {markers.map((restaurant: Restaurant) => (
         // console.log('marker', restaurant.location.coordinates)
         <Marker
