@@ -5,5 +5,6 @@ type Props = {
 };
 
 export default function Profile(props: Props) {
+  console.log('Profile page', props);
   return null;
 }
