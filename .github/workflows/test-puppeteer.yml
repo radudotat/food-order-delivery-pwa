@@ -25,6 +25,9 @@ jobs:
       - name: Create database and allow user
         run: |
           sudo -u postgres createdb --owner=${{ secrets.PGUSERNAME }} ${{ secrets.PGDATABASE }}
+      - name: Create extension
+        run: |
+          sudo -u postgres psql --command="CREATE EXTENSION postgis;" --dbname=${{ secrets.PGDATABASE }}
       # Use the official Checkout action (clones the GitHub repo):
       # https://github.com/actions/checkout
       - uses: actions/checkout@v2
