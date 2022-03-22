@@ -14,6 +14,15 @@ jobs:
       PGUSERNAME: ${{ secrets.PGUSERNAME }}
       PGPASSWORD: ${{ secrets.PGPASSWORD }}
       CSRF_SECRET_SALT: ${{ secrets.CSRF_SECRET_SALT }}
+      GRAPHQL_ENDPOINT: ${{ secrets.GRAPHQL_ENDPOINT }}
+      IMAGES_ENDPOINT: ${{ secrets.IMAGES_ENDPOINT }}
+      IMAGES_DOMAIN: ${{ secrets.IMAGES_DOMAIN }}
+      MAP_ENDPOINT: ${{ secrets.MAP_ENDPOINT }}
+      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      SENTRY_URL: ${{ secrets.SENTRY_URL }}
+      SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+      SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     steps:
       - name: InstallPostgis on Ubuntu
         run: |
