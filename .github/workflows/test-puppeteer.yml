@@ -17,11 +17,11 @@ jobs:
     steps:
       - name: InstallPostgis on Ubuntu
         run: |
-          sudo apt remove --purge -y postgresql* && sudo apt update && sudo apt install -y postgresql-13-postgis-3
+          sudo apt remove --purge -y postgresql* && sudo apt update && sudo apt install -y postgis
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
           # sudo systemctl start postgresql.service
-          sudo service postgresql@13-main restart
+          sudo systemctl list-units --type=service && sudo service postgresql@10-main restart
           pg_isready
       - name: Create database user
         run: |
