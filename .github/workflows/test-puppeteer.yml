@@ -30,7 +30,7 @@ jobs:
           sudo -u postgres createdb --owner=${{ secrets.PGUSERNAME }} ${{ secrets.PGDATABASE }}
       - name: Create extension
         run: |
-          sudo -u postgres psql --command="CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS postgis_topology;" --dbname=${{ secrets.PGDATABASE }}
+          sudo -u postgres psql --command="\c ${{ secrets.PGDATABASE }}" --command="CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS postgis_topology;"
       # Use the official Checkout action (clones the GitHub repo):
       # https://github.com/actions/checkout
       - uses: actions/checkout@v2
