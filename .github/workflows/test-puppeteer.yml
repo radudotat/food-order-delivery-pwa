@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: InstallPostgis on Ubuntu
         run: |
-          sudo apt update && sudo apt install -y postgresql-14-postgis-*
+          sudo apt update && sudo apt search postgis && sudo apt install -y postgresql-13-postgis-3
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
           sudo systemctl start postgresql.service
