@@ -15,6 +15,9 @@ jobs:
       PGPASSWORD: ${{ secrets.PGPASSWORD }}
       CSRF_SECRET_SALT: ${{ secrets.CSRF_SECRET_SALT }}
     steps:
+      - name: InstallPostgis on Ubuntu
+        run: |
+          sudo apt update && sudo apt install -y postgis
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
           sudo systemctl start postgresql.service
