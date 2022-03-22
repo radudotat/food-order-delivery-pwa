@@ -3,7 +3,7 @@ const baseUrl = 'https://geofood-delivery.herokuapp.com/';
 test('should show the home page message', async () => {
   await page.goto(`${baseUrl}/`);
 
-  await page.waitForNetworkIdle();
+  // await page.waitForNetworkIdle(); //only after a click
 
   await page.waitForXPath(
     '//*[@id="__next"]/main/div/div/h1[contains(text(), "Easy food Order & Delivery near you!")]',
