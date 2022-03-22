@@ -9,4 +9,6 @@ jobs:
       - name: Lighthouse
         uses: foo-software/lighthouse-check-action@master
         with:
+          branch: main
+          emulatedFormFactor: 'desktop'
           urls: 'https://geofood-delivery.herokuapp.com'
