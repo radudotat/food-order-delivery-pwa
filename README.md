@@ -3,7 +3,7 @@
 **Tags:** node.js, graphql, design, typescript, pwa, offline-first, next.js, postgresql, push-notifications, background-sync, tailwindcss
 
 ![Discover vulnerabilities](https://github.com/radudotat/food-order-delivery-pwa/actions/workflows/codeql-analysis.yml/badge.svg) ![Security issues ](https://github.com/radudotat/food-order-delivery-pwa/actions/workflows/yarn-audit-action.yaml/badge.svg) ![Puppeteer tests](https://github.com/radudotat/food-order-delivery-pwa/actions/workflows/test-puppeteer.yml/badge.svg)
-![Jest tests](https://github.com/radudotat/food-order-delivery-pwa/actions/workflows/test-jest.yml/badge.svg)
+![Jest tests](https://github.com/radudotat/food-order-delivery-pwa/actions/workflows/test-jest.yml/badge.svg) ![Lighthouse Scores](https://github.com/radudotat/food-order-delivery-pwa/actions/workflows/lighthouse.yml/badge.svg)
 
 ## Description
 
