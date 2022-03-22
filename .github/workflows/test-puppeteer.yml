@@ -7,7 +7,7 @@ jobs:
     # Tell the action to use the latest
     # version of Ubuntu (a Linux flavor)
     # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       PGHOST: localhost
       PGDATABASE: ${{ secrets.PGDATABASE }}
@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: InstallPostgis on Ubuntu
         run: |
-          sudo apt update && sudo apt install -y postgresql-14-postgis-3
+          sudo apt remove --purge -y postgresql && sudo apt update && sudo apt install -y postgis postgresql-13-postgis-3
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
           sudo systemctl start postgresql.service
@@ -30,7 +30,7 @@ jobs:
           sudo -u postgres createdb --owner=${{ secrets.PGUSERNAME }} ${{ secrets.PGDATABASE }}
       - name: Create extension
         run: |
-          sudo -u postgres psql --command="\c ${{ secrets.PGDATABASE }}" --command="CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS postgis_topology;"
+          sudo -u postgres psql --command="\c ${{ secrets.PGDATABASE }}" --command="CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS postgis_topology;" --dbname=${{ secrets.PGDATABASE }}
       # Use the official Checkout action (clones the GitHub repo):
       # https://github.com/actions/checkout
       - uses: actions/checkout@v2
