@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3001';
+const baseUrl = 'http://localhost:3000';
 
 test('should navigate, interact with elements, and show correct content', async () => {
   await page.goto(`${baseUrl}/`);
