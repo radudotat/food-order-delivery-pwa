@@ -7,7 +7,7 @@ jobs:
     # Tell the action to use the latest
     # version of Ubuntu (a Linux flavor)
     # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     env:
       PGHOST: localhost
       PGDATABASE: ${{ secrets.PGDATABASE }}
@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: InstallPostgis on Ubuntu
         run: |
-          sudo apt update && sudo apt install -y postgis
+          sudo apt update && sudo apt install -y postgresql-14-postgis-*
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
           sudo systemctl start postgresql.service
