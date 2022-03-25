@@ -273,6 +273,10 @@ img.cover {
   margin-left: 1rem;
 }
 
+.cartArea > ul > li a {
+  color: white;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

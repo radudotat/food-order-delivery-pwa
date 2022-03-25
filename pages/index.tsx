@@ -126,7 +126,11 @@ export default function Home(props: Props) {
                     </li>
                   </>
                 )}
-                <li>2</li>
+                <li>
+                  <Link href="/logout" as="/logout" shallow={true}>
+                    <a>Logout</a>
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
