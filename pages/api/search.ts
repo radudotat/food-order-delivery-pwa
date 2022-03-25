@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getSortedRestaurantsData } from '../../lib/restaurants';
 import { IndexResponseBody } from '../../lib/types/restaurants';
 
-// import {nearby_restaurants} from "../../cache/data/restaurants";
+// import {nearbyRestaurants} from "../../cache/data/restaurants";
 
 // const restaurants = getSortedRestaurantsData(q);
 // navigator.onLine

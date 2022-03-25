@@ -65,9 +65,9 @@ export const content = css`
 
 type Props = {
   isShown: boolean;
-  hide: () => void;
-  modalContent: JSX.Element;
-  headerText: string;
+  hide?: () => void;
+  modalContent?: JSX.Element;
+  headerText?: string;
 };
 
 const ModalAuth = (props: Props) => {

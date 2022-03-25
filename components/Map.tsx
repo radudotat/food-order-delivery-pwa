@@ -58,10 +58,12 @@ export default function Map(props: Props) {
     // setCoordinates(restaurantsCoordinates); //REMINDER@Radu: Don't setState here, will start a loop
 
     setTimeout(() => {
-      console.log('fitBounds', coordinates, mapRef);
-      mapRef.current?.fitBounds(restaurantsCoordinates);
+      console.log('fitBounds', coordinates, mapRef.current);
+      if (mapRef.current.el) {
+        mapRef.current?.fitBounds(restaurantsCoordinates);
+      }
       setMarkers(props.restaurants);
-    }, 500);
+    }, 1000);
   }, [props.restaurants, coordinates]);
 
   return (

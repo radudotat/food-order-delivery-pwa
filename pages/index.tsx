@@ -1,12 +1,16 @@
 import '../node_modules/leaflet/dist/leaflet.css';
 import { GetServerSidePropsContext } from 'next';
+// import { useContextualRouting } from 'next-use-contextual-routing';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image, { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { Modal } from 'react-responsive-modal';
 import { Bag, Drone } from '../components/icons';
 import Layout from '../components/Layout';
+import ModalAuth from '../components/modals/ModalAuth';
 import RequestPositionButton from '../components/RequestPositionButton';
 import Search from '../components/Search';
 import UserMenu from '../components/UserMenu';
@@ -14,6 +18,8 @@ import { createCsrfToken } from '../lib/auth';
 import { User } from '../lib/database';
 import { Restaurant } from '../lib/types/restaurants';
 import styles from '../styles/Home.module.css';
+
+// import Login from './login';
 
 type Props = {
   refreshRestaurants: () => void;
@@ -25,6 +31,21 @@ type Props = {
 };
 
 export default function Home(props: Props) {
+  const router = useRouter();
+  // const pageState = router.query.state;
+  // const { makeContextualHref, returnHref } = useContextualRouting();
+  // const openModal = () =>
+  //   router.push(
+  //     makeContextualHref({ id: 0 }),
+  //     '/login',
+  //     {
+  //       shallow: true,
+  //     },
+  //   );
+
+  // const closeModal = () =>
+  //   router.push(returnHref, undefined, { shallow: true });
+
   const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
     if (!props.imagesUrl) throw new Error('IMAGES API address not defined');
 
@@ -87,25 +108,25 @@ export default function Home(props: Props) {
                 <li>
                   <Bag />
                 </li>
-                {props.userObject ? (
+                {userId ? (
                   <li>
                     <UserMenu isLoggedIn={isLoggedIn} />
                   </li>
                 ) : (
                   <>
                     <li>
-                      <Link href="/login">
+                      <Link href="/login" as="/login" shallow={true}>
                         <a>Login</a>
                       </Link>
                     </li>
                     <li>
-                      <Link href="/register">
+                      <Link href="/register" as="/register" shallow={true}>
                         <a>Register</a>
                       </Link>
                     </li>
                   </>
                 )}
-                <li></li>
+                <li>2</li>
               </ul>
             </div>
           </div>
@@ -162,6 +183,14 @@ export default function Home(props: Props) {
           </a>
         </footer>
       </div>
+      <Modal
+        center
+        blockScroll={true}
+        open={!!router.query.login}
+        onClose={() => router.push('/', undefined, { shallow: true })}
+      >
+        <ModalAuth isShown={true} />
+      </Modal>
     </Layout>
   );
 }

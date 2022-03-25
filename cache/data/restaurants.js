@@ -1,4 +1,4 @@
-export const nearby_restaurants = [
+export const nearbyRestaurants = [
   {
     id: 18528,
     name: 'Haas & Haas',
