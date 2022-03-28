@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { getRestaurantById } from '../../lib/restaurants';
 import { Restaurant } from '../../lib/types/restaurants';
 import styles from '../../styles/Home.module.css';
+import Layout from '../../components/Layout';
 
 type Props = {
   restaurant: Restaurant;
@@ -25,7 +26,7 @@ export default function SingleRestaurant(props: Props) {
   };
   // console.log('SingleRestaurant', props);
   return (
-    <>
+    <Layout>
       {/* <p>{JSON.stringify(props)}</p>*/}
       <div className={styles.restaurantCover}>
         <Image
@@ -37,14 +38,15 @@ export default function SingleRestaurant(props: Props) {
           height={166}
           layout="responsive"
         />
+        <div>
+          <h3>{props.restaurant.name}</h3>
+          <address>{props.restaurant.address}</address>
+          <p>{props.restaurant.distance}</p>
+          <button onClick={() => router.back()}>Back</button>
+        </div>
       </div>
-      <div>
-        <h3>{props.restaurant.name}</h3>
-        <address>{props.restaurant.address}</address>
-        <p>{props.restaurant.distance}</p>
-        <button onClick={() => router.back()}>Back</button>
-      </div>
-    </>
+
+    </Layout>
   );
 }
 

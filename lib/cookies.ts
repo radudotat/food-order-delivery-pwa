@@ -1,11 +1,11 @@
-import { serialize } from 'cookie';
+import {serialize} from 'cookie';
 import Cookies from 'js-cookie';
-import { cloneLocation } from './helpers';
+import {cloneLocation} from './helpers';
 
 export function getParsedCookie(key: string) {
   const cookieValue = Cookies.get(key); // Type is string | undefined
 
-  console.log('getParsedCookie', key, cookieValue);
+  console.log('~~~~~~~~~~~~~~~~~~~~~~getParsedCookie', key, cookieValue);
   // Narrowing
   if (!cookieValue) {
     return undefined;
@@ -51,6 +51,12 @@ export function getCookieLocation() {
   return getParsedCookie('userLocation');
 }
 
+export function getCookieSession() {
+  const cookieValue = Cookies.get('sessionToken');
+  console.log('------------------------getCookieSession', cookieValue)
+  return cookieValue;
+}
+
 export function setCookieLocation(location: GeolocationPosition) {
   const storedLocation = getCookieLocation();
   console.log('storedLocation', storedLocation);
@@ -68,6 +74,7 @@ export function setCookieLocation(location: GeolocationPosition) {
 }
 
 export function createSessionTokenCookie(token: string) {
+  Cookies.set('isLoggedIn', 'true');
   // check if we are in production e.g. Heroku
   const isProduction = process.env.NODE_ENV === 'production';
 

@@ -1,28 +1,29 @@
 import '../node_modules/leaflet/dist/leaflet.css';
-import { GetServerSidePropsContext } from 'next';
+import {GetServerSidePropsContext} from 'next';
 // import { useContextualRouting } from 'next-use-contextual-routing';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import Image, { ImageLoaderProps } from 'next/image';
+import Image, {ImageLoaderProps} from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { Modal } from 'react-responsive-modal';
-import { Bag, Drone } from '../components/icons';
+import {useRouter} from 'next/router';
+import {useEffect, useState} from 'react';
+import {Modal} from 'react-responsive-modal';
+import {Bag, Drone} from '../components/icons';
 import Layout from '../components/Layout';
 import ModalAuth from '../components/modals/ModalAuth';
 import RequestPositionButton from '../components/RequestPositionButton';
 import Search from '../components/Search';
 import UserMenu from '../components/UserMenu';
-import { createCsrfToken } from '../lib/auth';
-import { User } from '../lib/database';
-import { Restaurant } from '../lib/types/restaurants';
+import {createCsrfToken} from '../lib/auth';
+import {User} from '../lib/database';
+import {Restaurant} from '../lib/types/restaurants';
 import styles from '../styles/Home.module.css';
 
 // import Login from './login';
 
 type Props = {
   refreshRestaurants: () => void;
+  sessionToken: string;
   csrfToken: string;
   restaurants: any;
   imagesUrl: string;
@@ -46,7 +47,7 @@ export default function Home(props: Props) {
   // const closeModal = () =>
   //   router.push(returnHref, undefined, { shallow: true });
 
-  const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  const imageLoader = ({src, width, quality}: ImageLoaderProps) => {
     if (!props.imagesUrl) throw new Error('IMAGES API address not defined');
 
     return `${props.imagesUrl}/restaurants/1080/${src}?w=${width}&q=${
@@ -60,7 +61,7 @@ export default function Home(props: Props) {
     setUserId(id);
   }
 
-  const isLoggedIn: boolean = userId ? userId > 0 : false;
+  // const isLoggedIn: boolean = userId ? userId > 0 : false;
 
   // Avoid error if userId is undefined
   if (typeof userId === 'number') {
@@ -79,7 +80,7 @@ export default function Home(props: Props) {
         sw.register('/sw.js')
           .then(() => sw.ready)
           .then(() => {
-            sw.addEventListener('message', ({ data }) => {
+            sw.addEventListener('message', ({data}) => {
               if (data?.state !== undefined) {
                 // setCounter(data.state);
                 console.log(data);
@@ -92,51 +93,12 @@ export default function Home(props: Props) {
   }, []);
 
   return (
-    <Layout csrfToken={props.csrfToken} userObject={props.userObject}>
+    <Layout sessionToken={props.sessionToken} csrfToken={props.csrfToken} userObject={props.userObject}>
       <div className={styles.container}>
-        <Head children={null} />
-        <nav className={styles.sticky}>
-          <div className={styles.navLayout}>
-            <div className={styles.logoArea}>GeoFood</div>
+        <Head children={null}/>
 
-            <div className={styles.searchArea}>
-              <Search />
-            </div>
-
-            <div className={styles.cartArea}>
-              <ul>
-                <li>
-                  <Bag />
-                </li>
-                {userId ? (
-                  <li>
-                    <UserMenu isLoggedIn={isLoggedIn} />
-                  </li>
-                ) : (
-                  <>
-                    <li>
-                      <Link href="/login" as="/login" shallow={true}>
-                        <a>Login</a>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/register" as="/register" shallow={true}>
-                        <a>Register</a>
-                      </Link>
-                    </li>
-                  </>
-                )}
-                <li>
-                  <Link href="/logout" as="/logout" shallow={true}>
-                    <a>Logout</a>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
         <div className={styles.hero}>
-          <Drone />
+          <Drone/>
           <h1>Easy food Order & Delivery near you!</h1>
           <RequestPositionButton
             refreshRestaurants={props.refreshRestaurants}
@@ -174,7 +136,7 @@ export default function Home(props: Props) {
             ))}
           </div>
           <div className={styles.mapcontainer}>
-            <DynamicMap restaurants={props.restaurants} mapUrl={props.mapUrl} />
+            <DynamicMap restaurants={props.restaurants} mapUrl={props.mapUrl}/>
           </div>
         </main>
 
@@ -191,9 +153,9 @@ export default function Home(props: Props) {
         center
         blockScroll={true}
         open={!!router.query.login}
-        onClose={() => router.push('/', undefined, { shallow: true })}
+        onClose={() => router.push('/', undefined, {shallow: true})}
       >
-        <ModalAuth isShown={true} />
+        <ModalAuth isShown={true}/>
       </Modal>
     </Layout>
   );

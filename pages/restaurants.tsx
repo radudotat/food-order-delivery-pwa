@@ -11,17 +11,21 @@ import {
   ReservedRestaurants,
   setParsedCookie,
 } from '../lib/cookies';
-import { getRestaurants } from '../lib/database';
+import {getRestaurants, User} from '../lib/database';
 import { formatPrice } from '../lib/helpers';
 import { Restaurant } from '../lib/types/restaurants';
 // import Layout from '../components/Layout';
 import PizzaIso from '../public/svg/pizza-iso.svg';
 import styles from '../styles/Home.module.css';
+import Layout from '../components/Layout';
 
 type Props = {
   //   setRestaurants: () => void;
   restaurants: Restaurant[];
   reservedRestaurants: ReservedRestaurants;
+  sessionToken: string;
+  csrfToken: string;
+  userObject: User;
 };
 
 // const RestaurantStyles = css`
@@ -113,7 +117,7 @@ export default function Restaurants(props: Props) {
   }
 
   return (
-    <>
+    <Layout sessionToken={props.sessionToken} csrfToken={props.csrfToken} userObject={props.userObject}>
       <Head>
         <title>Restaurants</title>
         <meta name="description" content="Our shop Restaurants" />
@@ -139,7 +143,7 @@ export default function Restaurants(props: Props) {
           );
         })}
       </div>
-    </>
+    </Layout>
   );
 }
 

@@ -6,11 +6,11 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === 'GET') {
-    console.log(req.cookies);
+    // console.log(req.cookies);
     const token = req.cookies.sessionToken;
 
     if (!token) {
-      res.status(400).json({
+      res.status(200).json({
         errors: [
           {
             message: 'No session token passed',

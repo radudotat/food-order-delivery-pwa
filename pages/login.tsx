@@ -18,6 +18,7 @@ type Props = {
   refreshUserProfile: () => void;
   userObject: { username: string };
   csrfToken: string;
+  sessionToken: string;
 };
 
 export default function Login(props: Props) {
@@ -27,7 +28,7 @@ export default function Login(props: Props) {
   const router = useRouter();
 
   return (
-    <Layout csrfToken={props.csrfToken} userObject={props.userObject}>
+    <Layout sessionToken={props.sessionToken} csrfToken={props.csrfToken} userObject={props.userObject}>
       <Head>
         <title>Login</title>
         <meta name="description" content="Login on this website"/>

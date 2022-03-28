@@ -201,6 +201,7 @@ img.cover {
 
 .restaurantCover {
   margin: 0;
+  padding: 1em;
   max-height: 200px;
   border-radius: 10px;
 }

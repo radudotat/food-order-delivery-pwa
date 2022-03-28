@@ -59,7 +59,7 @@ export default function Map(props: Props) {
 
     setTimeout(() => {
       console.log('fitBounds', coordinates, mapRef.current);
-      if (mapRef.current.el) {
+      if (mapRef.current?.el) {
         mapRef.current?.fitBounds(restaurantsCoordinates);
       }
       setMarkers(props.restaurants);

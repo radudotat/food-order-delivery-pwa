@@ -18,3 +18,7 @@ a {
   box-sizing: border-box;
   /* outline: dotted 1px lightcoral; */
 }
+
+main {
+  margin-top: 2.5em;
+}
