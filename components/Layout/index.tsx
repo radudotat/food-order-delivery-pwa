@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 import { User } from '../../lib/database';
-import Header from './Header';
+// import Header from './Header';
 import styles from '../../styles/Home.module.css';
 import Search from '../Search';
 import { Bag } from '../icons';
@@ -50,7 +50,7 @@ export default function Layout(props: Props) {
         />
       </Head>
 
-      <Header userObject={props.userObject} />
+      {/* <Header userObject={props.userObject} /> */}
 
       <nav className={styles.sticky}>
         <div className={styles.navLayout}>

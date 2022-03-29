@@ -44,6 +44,7 @@ const nextConfig = {
   // turn on the SW in dev mode so that we can actually test it
   generateInDevMode: false,
   workboxOpts: {
+    debug: false,
     swDest: 'public/sw.js',
     maximumFileSizeToCacheInBytes: 5000000,
     runtimeCaching: [

@@ -1,5 +1,5 @@
 import { Icon, LatLngBoundsExpression, LatLngExpression } from 'leaflet';
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { MapContainer, Marker, Popup } from 'react-leaflet';
 import VectorTileLayer from 'react-leaflet-vector-tile-layer';
 import { Restaurant } from '../lib/types/restaurants';
@@ -41,7 +41,7 @@ export default function Map(props: Props) {
     iconSize: [70, 62],
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let restaurantsCoordinates: LatLngBoundsExpression = props.restaurants.map(
       (restaurant) => [
         restaurant.location.coordinates[1],
@@ -58,7 +58,7 @@ export default function Map(props: Props) {
     // setCoordinates(restaurantsCoordinates); //REMINDER@Radu: Don't setState here, will start a loop
 
     setTimeout(() => {
-      console.log('fitBounds', coordinates, mapRef.current);
+      // console.log('fitBounds', coordinates, mapRef.current);
       if (mapRef.current?.el) {
         mapRef.current?.fitBounds(restaurantsCoordinates);
       }

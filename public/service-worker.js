@@ -41,3 +41,5 @@ self.addEventListener('sync', (e) => {
 self.addEventListener('periodicsync', (e) => {
   // console.log(`[Service Worker periodicsync] Fetched resource`, e);
 });
+
+self.__WB_DISABLE_DEV_LOGS = true;

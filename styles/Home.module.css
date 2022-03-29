@@ -173,6 +173,12 @@
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%),
+    0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.card img {
+  border-radius: 10px;
 }
 
 .card:hover,
@@ -183,7 +189,7 @@
 }
 
 .card h2 {
-  margin: 0 0 1rem 0;
+  margin: 0.5rem 0 1rem 0;
   font-size: 1.5rem;
 }
 
@@ -203,7 +209,12 @@ img.cover {
   margin: 0;
   padding: 1em;
   max-height: 200px;
+}
+
+.restaurantCover > *:first-child {
   border-radius: 10px;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%),
+    0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
 .logo {

@@ -5,7 +5,7 @@ import { cloneLocation } from './helpers';
 export function getParsedCookie(key: string) {
   const cookieValue = Cookies.get(key); // Type is string | undefined
 
-  console.log('~~~~~~~~~~~~~~~~~~~~~~getParsedCookie', key, cookieValue);
+  // console.log('~~~~~~~~~~~~~~~~~~~~~~getParsedCookie', key, cookieValue);
   // Narrowing
   if (!cookieValue) {
     return undefined;
@@ -28,7 +28,7 @@ export type ReservedRestaurants = ReservedRestaurant[];
 // export type Location = ReservedRestaurant[];
 
 export function setParsedCookie(key: string, value: any) {
-  console.log('setParsedCookie', key, value);
+  // console.log('setParsedCookie', key, value);
   // make sure your cookies don't expire
   const expiration = new Date('01/01/2100');
 
@@ -53,13 +53,13 @@ export function getCookieLocation() {
 
 export function getCookieSession() {
   const cookieValue = Cookies.get('sessionToken');
-  console.log('------------------------getCookieSession', cookieValue);
+  // console.log('------------------------getCookieSession', cookieValue);
   return cookieValue;
 }
 
 export function setCookieLocation(location: GeolocationPosition) {
   const storedLocation = getCookieLocation();
-  console.log('storedLocation', storedLocation);
+  // console.log('storedLocation', storedLocation);
   if (
     !location.timestamp &&
     storedLocation.timestamp &&
@@ -69,7 +69,7 @@ export function setCookieLocation(location: GeolocationPosition) {
   }
 
   const userLocation = cloneLocation(location);
-  console.log('setCookieLocation', location, userLocation);
+  // console.log('setCookieLocation', location, userLocation);
   setParsedCookie('userLocation', userLocation);
 }
 

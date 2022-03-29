@@ -102,7 +102,7 @@ export default function Home(props: Props) {
           <RequestPositionButton
             refreshRestaurants={props.refreshRestaurants}
           />
-          {JSON.stringify(props.userObject)}
+          {/* {JSON.stringify(props.userObject)} */}
         </div>
         <main className={styles.main}>
           <h1 className={styles.title}>

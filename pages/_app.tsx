@@ -8,7 +8,7 @@ import apolloClient, {
   fetchGetRestaurants,
   getRestaurantsQuery,
 } from '../lib/apollo';
-import { getParsedCookie } from '../lib/cookies';
+// import { getParsedCookie } from '../lib/cookies';
 import { Restaurant } from '../lib/types/restaurants';
 
 interface SentryAppProps extends AppProps {
@@ -43,9 +43,11 @@ function MyApp({ Component, pageProps }: SentryAppProps) {
     // console.log(
     //   '-------------------- refreshRestaurants -----------------',
     //   args,
+    //   typeof args[0],
     // );
-    if (args.length > 0 && args[0] === 'byLocation') {
-      const location = getParsedCookie('userLocation');
+    if (args.length > 0 && args[0].coords) {
+      const location = args[0];
+      // const location = getParsedCookie('userLocation');
       gql = `
               query GetNearbyRestaurants {
                 nearby_restaurants(args: {

@@ -5,12 +5,12 @@ import { setCookieLocation } from '../lib/cookies';
 import { MapPin } from './icons';
 
 type Props = {
-  refreshRestaurants: (param: string) => void;
+  refreshRestaurants: (param: GeolocationPosition | string) => void;
 };
 
 const requestGeolocation = (callRefreshRestaurants: {
   (param: string): void;
-  (arg0: string): void;
+  (arg0: GeolocationPosition | string): void;
 }) => {
   scroller.scrollTo('restaurants', {
     duration: 1200,
@@ -23,7 +23,7 @@ const requestGeolocation = (callRefreshRestaurants: {
     (location) => {
       // console.log('requestGeolocation', location.coords.latitude, location.coords.longitude);
       setCookieLocation(location);
-      callRefreshRestaurants('byLocation');
+      callRefreshRestaurants(location);
 
       return location;
     },
