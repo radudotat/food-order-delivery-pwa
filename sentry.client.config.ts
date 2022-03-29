@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 
   Sentry.init({
     environment: process.env.NODE_ENV,
-    sendClientReports: false,
+    sendClientReports: true,
     dsn: SENTRY_DSN,
     // We recommend adjusting this value in production, or using tracesSampler
     // for finer control
