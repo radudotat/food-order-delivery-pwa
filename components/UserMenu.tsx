@@ -1,13 +1,28 @@
-import {User as UserIcon} from './icons';
+import { User as UserIcon } from './icons';
 import styles from '../styles/search.module.css';
 import Link from 'next/link';
-import React, {useCallback, useRef, useState} from 'react';
-import {User} from '../lib/database';
+import React, {
+  useCallback,
+  useRef,
+  useState,
+  AnchorHTMLAttributes,
+} from 'react';
+import { User } from '../lib/database';
+import { Interpolation, Theme } from '@emotion/react';
 
 type Props = {
-  sessionToken?: string;
+  // sessionToken?: string;
   userObject?: User;
 };
+
+function Anchor({
+  children,
+  ...restProps
+}: AnchorHTMLAttributes<HTMLAnchorElement> & {
+  css?: Interpolation<Theme>;
+}) {
+  return <a {...restProps}>{children}</a>;
+}
 
 export default function UserMenu(props: Props) {
   // console.log('UserMenu props', props);
@@ -30,7 +45,12 @@ export default function UserMenu(props: Props) {
   // return props.isLoggedIn ? <UserIcon /> : <p>Login</p>;
   return (
     <li>
-      <div onClick={toggleActive} className={styles.container} ref={userMenuRef}>
+      <div
+        aria-hidden="true"
+        onClick={toggleActive}
+        className={styles.container}
+        ref={userMenuRef}
+      >
         <style jsx>{`
           div {
             margin-left: 0.5em;
@@ -47,15 +67,13 @@ export default function UserMenu(props: Props) {
             color: white;
           }
         `}</style>
-        <UserIcon className={styles.container} onMouseEnter={toggleActive}/>
+        <UserIcon className={styles.container} onMouseEnter={toggleActive} />
         {active && (
           <ul className={styles.results}>
             {props.userObject && props.userObject.id ? (
-              <>
-                <li className={styles.result}>
-                  <a href="/logout">{`Logout ${props.userObject.username.toUpperCase()}`}</a>
-                </li>
-              </>
+              <li className={styles.result}>
+                <Anchor href="/logout">{`Logout ${props.userObject.username.toUpperCase()}`}</Anchor>
+              </li>
             ) : (
               <>
                 <li>
@@ -74,5 +92,5 @@ export default function UserMenu(props: Props) {
         )}
       </div>
     </li>
-  )
+  );
 }

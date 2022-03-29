@@ -1,22 +1,22 @@
 import '../styles/globals.css';
-import {ApolloProvider} from '@apollo/client';
-import type {AppProps} from 'next/app';
-import {useCallback, useEffect, useState} from 'react';
+import { ApolloProvider } from '@apollo/client';
+import type { AppProps } from 'next/app';
+import { useCallback, useEffect, useState } from 'react';
 import ModalAuth from '../components/modals/ModalAuth';
-import {useModal} from '../components/modals/useModal';
+import { useModal } from '../components/modals/useModal';
 import apolloClient, {
   fetchGetRestaurants,
   getRestaurantsQuery,
 } from '../lib/apollo';
-import {getCookieSession, getParsedCookie} from '../lib/cookies';
-import {Restaurant} from '../lib/types/restaurants';
+import { getParsedCookie } from '../lib/cookies';
+import { Restaurant } from '../lib/types/restaurants';
 
 interface SentryAppProps extends AppProps {
   err: any;
 }
 
-function MyApp({Component, pageProps}: SentryAppProps) {
-  const {isShown, toggle} = useModal();
+function MyApp({ Component, pageProps }: SentryAppProps) {
+  const { isShown, toggle } = useModal();
 
   const [user, setUser] = useState();
 
@@ -72,7 +72,7 @@ function MyApp({Component, pageProps}: SentryAppProps) {
     // console.log('typeof location', location, gql);
 
     const dataResponse = await fetchGetRestaurants(gql)
-      .then(({data, errors}) => {
+      .then(({ data, errors }) => {
         if (errors) {
           console.error(errors);
         }
@@ -95,10 +95,8 @@ function MyApp({Component, pageProps}: SentryAppProps) {
   }, []);
 
   useEffect(() => {
-    refreshUserProfile().catch(() => {
-    });
-    refreshRestaurants().catch(() => {
-    });
+    refreshUserProfile().catch(() => {});
+    refreshRestaurants().catch(() => {});
   }, [refreshRestaurants, refreshUserProfile]);
 
   return (

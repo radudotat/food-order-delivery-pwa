@@ -1,29 +1,28 @@
 import '../node_modules/leaflet/dist/leaflet.css';
-import {GetServerSidePropsContext} from 'next';
+import { GetServerSidePropsContext } from 'next';
 // import { useContextualRouting } from 'next-use-contextual-routing';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import Image, {ImageLoaderProps} from 'next/image';
+import Image, { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
-import {useEffect, useState} from 'react';
-import {Modal} from 'react-responsive-modal';
-import {Bag, Drone} from '../components/icons';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { Modal } from 'react-responsive-modal';
+import { Drone } from '../components/icons';
 import Layout from '../components/Layout';
 import ModalAuth from '../components/modals/ModalAuth';
 import RequestPositionButton from '../components/RequestPositionButton';
-import Search from '../components/Search';
-import UserMenu from '../components/UserMenu';
-import {createCsrfToken} from '../lib/auth';
-import {User} from '../lib/database';
-import {Restaurant} from '../lib/types/restaurants';
+// import Search from '../components/Search';
+// import UserMenu from '../components/UserMenu';
+import { createCsrfToken } from '../lib/auth';
+import { User } from '../lib/database';
+import { Restaurant } from '../lib/types/restaurants';
 import styles from '../styles/Home.module.css';
 
 // import Login from './login';
 
 type Props = {
   refreshRestaurants: () => void;
-  sessionToken: string;
   csrfToken: string;
   restaurants: any;
   imagesUrl: string;
@@ -47,7 +46,7 @@ export default function Home(props: Props) {
   // const closeModal = () =>
   //   router.push(returnHref, undefined, { shallow: true });
 
-  const imageLoader = ({src, width, quality}: ImageLoaderProps) => {
+  const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
     if (!props.imagesUrl) throw new Error('IMAGES API address not defined');
 
     return `${props.imagesUrl}/restaurants/1080/${src}?w=${width}&q=${
@@ -80,7 +79,7 @@ export default function Home(props: Props) {
         sw.register('/sw.js')
           .then(() => sw.ready)
           .then(() => {
-            sw.addEventListener('message', ({data}) => {
+            sw.addEventListener('message', ({ data }) => {
               if (data?.state !== undefined) {
                 // setCounter(data.state);
                 console.log(data);
@@ -93,12 +92,12 @@ export default function Home(props: Props) {
   }, []);
 
   return (
-    <Layout sessionToken={props.sessionToken} csrfToken={props.csrfToken} userObject={props.userObject}>
+    <Layout csrfToken={props.csrfToken} userObject={props.userObject}>
       <div className={styles.container}>
-        <Head children={null}/>
+        <Head children={null} />
 
         <div className={styles.hero}>
-          <Drone/>
+          <Drone />
           <h1>Easy food Order & Delivery near you!</h1>
           <RequestPositionButton
             refreshRestaurants={props.refreshRestaurants}
@@ -130,13 +129,13 @@ export default function Home(props: Props) {
                   />
                   <h2>{restaurant.name}</h2>
                   <p>{restaurant.address}</p>
-                  <p>{restaurant.distance}m</p>
+                  <p>{restaurant.distance ? `${restaurant.distance}m` : ''}</p>
                 </a>
               </Link>
             ))}
           </div>
           <div className={styles.mapcontainer}>
-            <DynamicMap restaurants={props.restaurants} mapUrl={props.mapUrl}/>
+            <DynamicMap restaurants={props.restaurants} mapUrl={props.mapUrl} />
           </div>
         </main>
 
@@ -153,9 +152,9 @@ export default function Home(props: Props) {
         center
         blockScroll={true}
         open={!!router.query.login}
-        onClose={() => router.push('/', undefined, {shallow: true})}
+        onClose={() => router.push('/', undefined, { shallow: true })}
       >
-        <ModalAuth isShown={true}/>
+        <ModalAuth isShown={true} />
       </Modal>
     </Layout>
   );

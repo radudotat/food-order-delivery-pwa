@@ -1,6 +1,6 @@
-import {serialize} from 'cookie';
+import { serialize } from 'cookie';
 import Cookies from 'js-cookie';
-import {cloneLocation} from './helpers';
+import { cloneLocation } from './helpers';
 
 export function getParsedCookie(key: string) {
   const cookieValue = Cookies.get(key); // Type is string | undefined
@@ -53,7 +53,7 @@ export function getCookieLocation() {
 
 export function getCookieSession() {
   const cookieValue = Cookies.get('sessionToken');
-  console.log('------------------------getCookieSession', cookieValue)
+  console.log('------------------------getCookieSession', cookieValue);
   return cookieValue;
 }
 

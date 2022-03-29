@@ -11,7 +11,7 @@ import {
   ReservedRestaurants,
   setParsedCookie,
 } from '../lib/cookies';
-import {getRestaurants, User} from '../lib/database';
+import { getRestaurants, User } from '../lib/database';
 import { formatPrice } from '../lib/helpers';
 import { Restaurant } from '../lib/types/restaurants';
 // import Layout from '../components/Layout';
@@ -23,7 +23,6 @@ type Props = {
   //   setRestaurants: () => void;
   restaurants: Restaurant[];
   reservedRestaurants: ReservedRestaurants;
-  sessionToken: string;
   csrfToken: string;
   userObject: User;
 };
@@ -117,7 +116,7 @@ export default function Restaurants(props: Props) {
   }
 
   return (
-    <Layout sessionToken={props.sessionToken} csrfToken={props.csrfToken} userObject={props.userObject}>
+    <Layout csrfToken={props.csrfToken} userObject={props.userObject}>
       <Head>
         <title>Restaurants</title>
         <meta name="description" content="Our shop Restaurants" />
