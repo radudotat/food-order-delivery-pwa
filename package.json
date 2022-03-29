@@ -12,7 +12,7 @@
     "start": "next start",
     "lint": "next lint",
     "migrate": "dotenv ley",
-    "heroku-postbuild": "yarn && yarn migrate up && yarn build"
+    "heroku-postbuild": "yarn migrate up && yarn build"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
