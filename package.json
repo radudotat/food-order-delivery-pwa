@@ -12,7 +12,7 @@
     "start": "next start",
     "lint": "next lint",
     "migrate": "dotenv ley",
-    "heroku-postbuild": "yarn migrate up && yarn build"
+    "heroku-postbuild": "yarn && yarn migrate up && yarn build"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
@@ -27,6 +27,7 @@
     "graphql": "^16.3.0",
     "js-cookie": "^3.0.1",
     "leaflet": "^1.7.1",
+    "ley": "^0.7.1",
     "next": "12.1.0",
     "next-pwa": "^5.4.6",
     "pg-connection-string": "^2.5.0",
@@ -79,7 +80,6 @@
     "eslint-plugin-unicorn": "41.0.1",
     "jest": "^27.5.1",
     "jest-puppeteer": "^6.1.0",
-    "ley": "^0.7.1",
     "puppeteer": "^13.3.0",
     "typescript": "4.6.3"
   },
