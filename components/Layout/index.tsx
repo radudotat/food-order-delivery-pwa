@@ -1,12 +1,12 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import React from 'react';
 import { User } from '../../lib/database';
 // import Header from './Header';
 import styles from '../../styles/Home.module.css';
-import Search from '../Search';
 import { Bag } from '../icons';
+import Search from '../Search';
 import UserMenu from '../UserMenu';
-import Link from 'next/link';
 
 type Props = {
   csrfToken?: string;
@@ -27,6 +27,7 @@ export default function Layout(props: Props) {
         <link rel="icon" href="/icons/maskable_icon_x48.png" />
         <link rel="manifest" href="/manifest.json" />
         <title>Food Ordering App</title>
+        <meta name="robots" content="index" />
         <meta
           name="description"
           content="Food Order & Delivery with Realtime Status Updates"
