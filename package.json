@@ -92,7 +92,7 @@
     "@typescript-eslint/utils": "5.16.0"
   },
   "engines": {
-    "node": ">=16.x",
+    "node": ">=14.x",
     "yarn": "^1.x"
   }
 }
