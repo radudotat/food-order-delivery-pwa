@@ -93,7 +93,7 @@ export async function getProductById(id: number) {
 
 export async function getRestaurants() {
   const restaurants = await sql<Restaurant[]>`
-    SELECT * FROM restaurants;
+    SELECT * FROM restaurants LIMIT 18;
   `;
 
   return restaurants.map((restaurant) => camelcaseKeys(restaurant));
