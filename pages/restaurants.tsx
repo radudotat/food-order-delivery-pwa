@@ -2,17 +2,17 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 // import Image from 'next/image';
 // import Link from 'next/link';
-import { useState } from 'react';
+// import { useState } from 'react';
 import Layout from '../components/Layout';
 import RestaurantsList from '../components/RestaurantsList';
 // import { BiCart } from 'react-icons/bi';
 // import { MapPin } from '../components/icons';
 import { fetchGetRestaurants, operation } from '../lib/apollo';
-import {
-  getParsedCookie,
-  ReservedRestaurants,
-  setParsedCookie,
-} from '../lib/cookies';
+// import {
+//   getParsedCookie,
+//   ReservedRestaurants,
+//   setParsedCookie,
+// } from '../lib/cookies';
 import { getRestaurants, User } from '../lib/database';
 // import { formatPrice } from '../lib/helpers';
 import { Restaurant } from '../lib/types/restaurants';
@@ -24,7 +24,7 @@ type Props = {
   //   setRestaurants: () => void;
   restaurants: Restaurant[];
   // refreshRestaurants: () => void;
-  reservedRestaurants: ReservedRestaurants;
+  // reservedRestaurants: ReservedRestaurants;
   csrfToken: string;
   userObject: User;
   imagesUrl: string;
@@ -83,11 +83,11 @@ const restaurants = async () => {
 console.log(restaurants);
 
 export default function Restaurants(props: Props) {
-  const [restaurantsArray, setRestaurantsArray] = useState(
+  /* const [restaurantsArray, setRestaurantsArray] = useState(
     props.reservedRestaurants,
-  );
+  ); */
 
-  function addRestaurantToCart(id: number) {
+  /* function addRestaurantToCart(id: number) {
     console.log('addRestaurantToCart', id, restaurantsArray);
     // 1. get the value of the cookie
     const cookieValue = getParsedCookie('reservedRestaurants') || [];
@@ -119,8 +119,8 @@ export default function Restaurants(props: Props) {
     // 3. set the new value of the cookie
     setRestaurantsArray(newCookie);
     setParsedCookie('reservedRestaurants', newCookie);
-    /* console.log('RestaurantsArray, RestaurantsArray'); */
-  }
+    // console.log('RestaurantsArray, RestaurantsArray');
+  } */
 
   return (
     <Layout csrfToken={props.csrfToken} userObject={props.userObject}>

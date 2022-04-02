@@ -61,3 +61,5 @@ public/sw.js.map
 public/workbox-*
 
 *.tsbuildinfo
+
+*.tsbuildinfo
