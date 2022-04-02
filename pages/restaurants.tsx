@@ -1,4 +1,4 @@
-// import { css } from '@emotion/react';
+import { css } from '@emotion/react';
 import Head from 'next/head';
 // import Image from 'next/image';
 // import Link from 'next/link';
@@ -65,9 +65,9 @@ type Props = {
 //   cursor: pointer;
 // `;
 
-// const restaurantsTileStyles = css`
-//   margin: 1.5em;
-// `;
+const restaurantsTileStyles = css`
+  margin: 1.5em;
+`;
 
 const restaurants = async () => {
   await fetchGetRestaurants(operation)
@@ -83,44 +83,44 @@ const restaurants = async () => {
 console.log(restaurants);
 
 export default function Restaurants(props: Props) {
-  // const [restaurantsArray, setRestaurantsArray] = useState(
-  //   props.reservedRestaurants,
-  // );
+  /* const [restaurantsArray, setRestaurantsArray] = useState(
+    props.reservedRestaurants,
+  ); */
 
-  // function addRestaurantToCart(id: number) {
-  //   console.log('addRestaurantToCart', id, restaurantsArray);
-  //   // 1. get the value of the cookie
-  //   const cookieValue = getParsedCookie('reservedRestaurants') || [];
+  /* function addRestaurantToCart(id: number) {
+    console.log('addRestaurantToCart', id, restaurantsArray);
+    // 1. get the value of the cookie
+    const cookieValue = getParsedCookie('reservedRestaurants') || [];
 
-  //   // 2. update the cooke
-  //   const existIdOnArray = cookieValue.some((cookieObject: { id: number }) => {
-  //     return cookieObject.id === id;
-  //   });
+    // 2. update the cooke
+    const existIdOnArray = cookieValue.some((cookieObject: { id: number }) => {
+      return cookieObject.id === id;
+    });
 
-  //   let newCookie;
-  //   if (existIdOnArray) {
-  //     //  CASE = when the id is in the array => delete item
-  //     //  cookieValue  [{id:3},{id:5} ]
-  //     newCookie = cookieValue.filter((cookieObject: { id: number }) => {
-  //       return cookieObject.id === id;
-  //     });
+    let newCookie;
+    if (existIdOnArray) {
+      //  CASE = when the id is in the array => delete item
+      //  cookieValue  [{id:3},{id:5} ]
+      newCookie = cookieValue.filter((cookieObject: { id: number }) => {
+        return cookieObject.id === id;
+      });
 
-  //     console.log('existIdOnArray Cookie', id, newCookie);
-  //     newCookie[0].quantity += 1;
-  //     const newQuantity = newCookie[0].quantity;
+      console.log('existIdOnArray Cookie', id, newCookie);
+      newCookie[0].quantity += 1;
+      const newQuantity = newCookie[0].quantity;
 
-  //     newCookie = [...cookieValue, { id: id, quantity: newQuantity }];
-  //   } else {
-  //     //  CASE = when the id is not in the array => add item
-  //     //  cookieValue  [{id:3, quantity: 5 },{id:5, quantity: 12 }]
-  //     newCookie = [...cookieValue, { id: id, quantity: 1 }];
-  //   }
+      newCookie = [...cookieValue, { id: id, quantity: newQuantity }];
+    } else {
+      //  CASE = when the id is not in the array => add item
+      //  cookieValue  [{id:3, quantity: 5 },{id:5, quantity: 12 }]
+      newCookie = [...cookieValue, { id: id, quantity: 1 }];
+    }
 
-  //   // 3. set the new value of the cookie
-  //   setRestaurantsArray(newCookie);
-  //   setParsedCookie('reservedRestaurants', newCookie);
-  //   /* console.log('RestaurantsArray, RestaurantsArray'); */
-  // }
+    // 3. set the new value of the cookie
+    setRestaurantsArray(newCookie);
+    setParsedCookie('reservedRestaurants', newCookie);
+    // console.log('RestaurantsArray, RestaurantsArray');
+  } */
 
   return (
     <Layout csrfToken={props.csrfToken} userObject={props.userObject}>
@@ -129,7 +129,9 @@ export default function Restaurants(props: Props) {
         <meta name="description" content="Our shop Restaurants" />
       </Head>
       <div className={styles.innerPage}>
-        <h1 className={styles.title}>Restaurants</h1>
+        <h1 css={restaurantsTileStyles} className={styles.title}>
+          Restaurants
+        </h1>
         <RestaurantsList
           restaurants={props.restaurants}
           imagesUrl={props.imagesUrl}
