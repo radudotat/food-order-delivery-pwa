@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
+// import Image from 'next/image';
+// import Link from 'next/link';
 import { useState } from 'react';
-import { BiCart } from 'react-icons/bi';
-import { MapPin } from '../components/icons';
+import Layout from '../components/Layout';
+import RestaurantsList from '../components/RestaurantsList';
+// import { BiCart } from 'react-icons/bi';
+// import { MapPin } from '../components/icons';
 import { fetchGetRestaurants, operation } from '../lib/apollo';
 import {
   getParsedCookie,
@@ -12,19 +14,20 @@ import {
   setParsedCookie,
 } from '../lib/cookies';
 import { getRestaurants, User } from '../lib/database';
-import { formatPrice } from '../lib/helpers';
+// import { formatPrice } from '../lib/helpers';
 import { Restaurant } from '../lib/types/restaurants';
 // import Layout from '../components/Layout';
-import PizzaIso from '../public/svg/pizza-iso.svg';
+// import PizzaIso from '../public/svg/pizza-iso.svg';
 import styles from '../styles/Home.module.css';
-import Layout from '../components/Layout';
 
 type Props = {
   //   setRestaurants: () => void;
   restaurants: Restaurant[];
+  // refreshRestaurants: () => void;
   reservedRestaurants: ReservedRestaurants;
   csrfToken: string;
   userObject: User;
+  imagesUrl: string;
 };
 
 // const RestaurantStyles = css`
@@ -34,32 +37,36 @@ type Props = {
 //   margin-bottom: 20px;
 // `;
 
-const restaurantStyles = css`
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: space-around;
-  align-items: center;
-`;
+// const restaurantStyles = css`
+//   border-radius: 5px;
+//   display: flex;
+//   flex-direction: column;
+//   align-content: center;
+//   justify-content: space-around;
+//   align-items: center;
+// `;
 
-const restaurantsStyles = css`
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: space-around;
-  align-items: center;
-`;
+// const restaurantsStyles = css`
+//   display: flex;
+//   flex-direction: row;
+//   align-content: center;
+//   justify-content: space-around;
+//   align-items: center;
+// `;
 
-const restaurantNameStyles = css`
-  text-transform: capitalize;
-  font-size: 120%;
-  font-weight: 700;
-`;
+// const restaurantNameStyles = css`
+//   text-transform: capitalize;
+//   font-size: 120%;
+//   font-weight: 700;
+// `;
 
-const restaurantLinkStyles = css`
-  text-align: center;
-  cursor: pointer;
+// const restaurantLinkStyles = css`
+//   text-align: center;
+//   cursor: pointer;
+// `;
+
+const restaurantsTileStyles = css`
+  margin: 1.5em;
 `;
 
 const restaurants = async () => {
@@ -121,26 +128,14 @@ export default function Restaurants(props: Props) {
         <title>Restaurants</title>
         <meta name="description" content="Our shop Restaurants" />
       </Head>
-
-      <h1 className={styles.title}>Restaurants</h1>
-      <div css={restaurantsStyles}>
-        {props.restaurants.map((restaurant: Restaurant) => {
-          return (
-            <div key={`Restaurant-${restaurant.id}`} css={restaurantStyles}>
-              <Link href={`/restaurants/${restaurant.id}`}>
-                <a css={restaurantLinkStyles}>
-                  <div css={restaurantNameStyles}>{restaurant.name}</div>
-                  <Image src={PizzaIso} />
-                </a>
-              </Link>
-              <button onClick={() => addRestaurantToCart(restaurant.id)}>
-                <MapPin />
-                {formatPrice(restaurant.distance)}
-                <BiCart height="40" />
-              </button>
-            </div>
-          );
-        })}
+      <div className={styles.innerPage}>
+        <h1 css={restaurantsTileStyles} className={styles.title}>
+          Restaurants
+        </h1>
+        <RestaurantsList
+          restaurants={props.restaurants}
+          imagesUrl={props.imagesUrl}
+        />
       </div>
     </Layout>
   );
@@ -149,12 +144,14 @@ export default function Restaurants(props: Props) {
 export async function getServerSideProps() {
   const responseRestaurantsList = await getRestaurants();
   console.log('-----------RestaurantsList', responseRestaurantsList);
+  const imagesUrl: string | undefined = process.env.IMAGES_ENDPOINT;
 
   return {
     props: {
       // In the props object, you can pass back
       // whatever information you want
       Restaurants: responseRestaurantsList,
+      imagesUrl: imagesUrl,
     },
   };
 }
