@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 
 // import { string } from 'prop-types';
 
@@ -92,6 +92,26 @@ export const operation = `
           cover
           distance
           location
+    }
+  }
+`;
+
+// Define the mutation
+export const UpdateRestaurant = gql`
+  mutation UpdateRestaurantMutation(
+    $changes: restaurants_set_input
+    $id: Int!
+  ) {
+    update_restaurants_by_pk(pk_columns: { id: $id }, _set: $changes) {
+      address
+      amenity
+      name
+      logo
+      location
+      id
+      distance
+      cuisine
+      cover
     }
   }
 `;

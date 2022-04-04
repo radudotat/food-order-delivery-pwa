@@ -1,6 +1,10 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Image, { ImageLoaderProps } from 'next/image';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import RestaurantForm from '../../components/forms/RestaurantForm';
+import Layout from '../../components/Layout';
+import { User } from '../../lib/database';
 // import Head from 'next/head';
 // import Image from 'next/image';
 // import Layout from '../../components/Layout';
@@ -8,11 +12,11 @@ import { useRouter } from 'next/router';
 import { getRestaurantById } from '../../lib/restaurants';
 import { Restaurant } from '../../lib/types/restaurants';
 import styles from '../../styles/Home.module.css';
-import Layout from '../../components/Layout';
 
 type Props = {
   restaurant: Restaurant;
   imagesUrl: string;
+  userObject: User;
 };
 
 export default function SingleRestaurant(props: Props) {
@@ -24,7 +28,16 @@ export default function SingleRestaurant(props: Props) {
       quality || 75
     }`;
   };
+
+  const [showEditForm, setShowEditForm] = useState<boolean>(false);
+
+  const toggleEditForm = () => setShowEditForm(!showEditForm);
+
   // console.log('SingleRestaurant', props);
+  useEffect(() => {
+    setShowEditForm(false);
+  }, []);
+
   return (
     <Layout>
       {/* <p>{JSON.stringify(props)}</p>*/}
@@ -32,20 +45,50 @@ export default function SingleRestaurant(props: Props) {
         <Image
           className={styles.cover}
           loader={imageLoader}
-          src={props.restaurant.cover}
+          src={props.restaurant.cover || 'default.jpg'}
           alt={`Cover photo of the ${props.restaurant.name}`}
           width={250}
           height={166}
           layout="responsive"
         />
         <div>
-          <h3>{props.restaurant.name}</h3>
-          <address>{props.restaurant.address}</address>
-          <p>{props.restaurant.distance}</p>
-          <button onClick={() => router.back()}>Back</button>
-        </div>
-      </div>
+          <div className={styles.flexContainer}>
+            <div className={styles.flexItem}>
+              <h3>{props.restaurant.name}</h3>
+              <address>{props.restaurant.address}</address>
+              {props.restaurant.distance && <p>{props.restaurant.distance}</p>}
+            </div>
 
+            <div className={styles.flexItem}>
+              {props.restaurant.amenity && (
+                <p>Amenity: {props.restaurant.amenity}</p>
+              )}
+              {props.restaurant.cuisine && (
+                <p>Cuisine: {props.restaurant.cuisine}</p>
+              )}
+            </div>
+          </div>
+
+          <button onClick={() => router.back()}>Back</button>
+          {props.userObject && (
+            <button onClick={() => setShowEditForm(true)}>Edit</button>
+          )}
+          {showEditForm && (
+            <button onClick={() => setShowEditForm(false)}>Cancel</button>
+          )}
+        </div>
+
+        {showEditForm && (
+          <div className={styles.restaurantForm}>
+            {/* {JSON.stringify(props.userObject)} */}
+            {/* {JSON.stringify(props.restaurant)} */}
+            <RestaurantForm
+              toggleEditForm={toggleEditForm}
+              restaurant={props.restaurant}
+            />
+          </div>
+        )}
+      </div>
     </Layout>
   );
 }

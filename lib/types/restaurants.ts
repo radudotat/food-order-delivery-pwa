@@ -5,6 +5,7 @@ export type Restaurant = {
   name: string;
   address: string;
   amenity: string;
+  cuisine: string;
   cover: string;
   distance: number;
   location: any;

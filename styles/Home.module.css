@@ -49,6 +49,7 @@
   text-shadow: rgb(235, 235, 235) 0px 0px 60px;
 }
 
+.button,
 .hero button {
   font-weight: 700;
   text-decoration: none;
@@ -214,6 +215,7 @@ img.cover {
   max-width: 800px;
 }
 
+.buttonForm,
 .restaurantCover button {
   cursor: pointer;
   color: #fff;
@@ -376,3 +378,67 @@ img.cover {
 /* .title {
   margin-top: 2em;
 } */
+
+.innerPage {
+  max-width: 1024px;
+  margin: 5em auto;
+}
+
+.innerForm input,
+.innerForm select,
+.innerForm textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.innerForm label {
+  padding: 12px 12px 12px 0;
+  display: block;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+.row:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 600px) {
+  .col-25,
+  .col-75,
+  .innerForm input[type='submit'] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: stretch;
+  align-items: flex-start;
+  margin-bottom: 1em;
+}
+
+.flexItem {
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
+}
