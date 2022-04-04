@@ -89,11 +89,14 @@ function MyApp({ Component, pageProps }: SentryAppProps) {
       setRestaurants([]);
       return;
     }
-    // console.log('---------- fetchGetRestaurants', data, args);
+    // console.log('---------- fetchGetRestaurants', dataResponse, args);
     const newData = dataResponse.restaurants
       ? dataResponse.restaurants
       : dataResponse.nearby_restaurants;
-    setRestaurants(newData);
+
+    if (newData) {
+      setRestaurants(newData);
+    }
   }, []);
 
   useEffect(() => {

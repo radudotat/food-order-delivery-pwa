@@ -92,7 +92,7 @@ export default function Map(props: Props) {
           <Popup>
             <h2>{restaurant.name}</h2>
             <h3>{restaurant.address}</h3>
-            <small>{restaurant.distance}m</small>
+            {restaurant.distance && <small>{restaurant.distance}m</small>}
             {/* {JSON.stringify(restaurant)}*/}
           </Popup>
         </Marker>

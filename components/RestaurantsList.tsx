@@ -24,7 +24,7 @@ export default function RestaurantsList(props: Props) {
             <Image
               className="cover"
               loader={imageLoader}
-              src={restaurant.cover}
+              src={restaurant.cover || 'default.jpg'}
               alt={`Cover photo of the ${restaurant.name}`}
               width={250}
               height={166}
