@@ -65,3 +65,5 @@ public/workbox-*
 *.tsbuildinfo
 
 schema.graphql
+
+.history

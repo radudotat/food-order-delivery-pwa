@@ -1,5 +1,6 @@
 .container {
     position: relative;
+    margin-right: 1rem;
 }
 
 .search {
@@ -11,6 +12,7 @@
     width: 100%;
     color: #2e7d32;
     outline: solid 2px #2e7d32;
+    margin: 0 0.5rem;
 }
 
 .results {
@@ -22,9 +24,14 @@
     top: 100%;
     left: 0;
     right: 0;
+    bottom: auto;
     background-color: #ffffff;
     box-shadow: 2px 2px 8px rgb(242 255 219 / 30%);
     border-radius: 8px;
+    min-width: 230px;
+    max-width: 50vw;
+    max-height: 78vh;
+    overflow: auto;
 }
 
 .result {

@@ -272,9 +272,9 @@ img.cover {
   padding: 0 1em;
 }
 
-/* .navLayout > div {
+.navLayout > * {
   flex: 1;
-} */
+}
 
 .searchForm {
   background-color: white;
@@ -309,10 +309,11 @@ img.cover {
   justify-content: flex-end;
   flex-wrap: nowrap;
   list-style-type: none;
+  padding: 0.25rem 0;
 }
 
 .cartArea > ul > li {
-  margin-left: 1rem;
+  margin-left: 0.25rem;
 }
 
 .cartArea > ul > li a {

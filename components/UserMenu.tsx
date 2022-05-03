@@ -53,14 +53,14 @@ export default function UserMenu(props: Props) {
       >
         <style jsx>{`
           div {
-            margin-left: 0.5em;
+            margin-left: 0.5rem;
           }
           ul {
             left: auto;
             background: #2e7d32;
           }
           li {
-            padding: 0.2em 1em;
+            padding: 1rem;
             white-space: nowrap;
           }
           a {
